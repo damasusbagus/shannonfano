@@ -3,48 +3,112 @@
 	<title>Shannon Fano</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
+
+		 // convert string to binary
+		 function text2Binary(string) {
+		 	var length = string.length,
+		 	output = [];
+		 	for (var i = 0;i < length; i++) {
+		 		var bin = string[i].charCodeAt().toString(2);
+		 		output.push(Array(8-bin.length+1).join("0") + bin);
+		 	} 
+		 	return output.join("");
+		 }
+		 console.log('text2binary='+text2Binary('abc'));
+
+		 //convert binary to whitespace
+		 function binarytowhitespace(a){
+		 	var data = a.split('');
+		 	for (var i = 0; i < a.length; i++) {
+		 		if(data[i] == '0'){
+		 			data[i] = '*';
+		 		}
+		 		else{
+		 			data[i] = '_';
+		 		}
+		 	}
+		 	var a = data.join('');
+		 	return a;
+		 }
+
+		 //convert binary to text
+		 function binarytotext(binary) {
+		 	return binary.replace(/[01]{8}/g, function (v) {
+		 		return String.fromCharCode(parseInt(v, 2));
+		 	});
+		 }
+
+		 //convert whitespace to binary
+		 function whitespacetobinary(a){
+		 	var data = a.split('');
+		 	for (var i = 0; i < a.length; i++) {
+		 		if(data[i] == '*'){
+		 			data[i] = '0';
+		 		}
+		 		else{
+		 			data[i] = '1';
+		 		}
+		 	}
+		 	var a = data.join('');
+		 	return a;
+		 }
+
+		 //detect separate character position
+		 function detect(data,data2){
+		 	var split = data.split('');
+		 	var separate = data2.split('');
+		 	for (var i = 0; i < split.length; i++) {
+		 		if (split[i] == separate[0]){
+		 			i++
+		 			if (split[i] == separate[1]){
+		 				i++
+		 				if (split[i] == separate[2]){
+		 					i++
+		 					if (split[i] == separate[3]){
+		 						i++
+		 						if (split[i] == separate[4]){
+		 							i++
+		 							if (split[i] == separate[5]){
+		 								i++
+		 								if (split[i] == separate[6]){
+		 									i++
+		 									if (split[i] == separate[7]){
+		 										i++
+		 										return i;
+		 									}
+		 								}
+		 							}
+		 						}
+		 					}
+		 				}
+		 			}
+		 		}
+		 	}
+		 }
+
 		$(document).ready(function(){
 
 			$('button').click(function(){
 				var message = $('.message').val();
-	var secret = $('.secret').val();
-	var result = '';
-	console.log('secret = '+secret);
+				var secret = $('.secret').val();
+				var result;
+				// console.log('secret = '+result);
 
+				 secret = text2Binary (secret,result);
+				 console.log('secret binary = '+secret);
 
-	 // convert string to binary
-	 function stringtobinary(a,b){
-	 	// for (var i = 0; i < a.length; i++) {
-	 	// 	return a[i].charCodeAt(0).toString(2) + "";
-	 	// }
-	 	alert(a);
-	 		 	return a.charCodeAt(0).toString(2) + "";
-// return a;
-	 }
+				 secret = binarytowhitespace(secret);
+				 console.log('whitespace = '+secret);
 
-	 //convert binary to whitespace
-	 function binarytowhitespace(c){
-	 	var a = c.split('');
-	 	for (var i = 0; i < a.length; i++) {
-	 		if(a[i] == '0'){
-	 			a[i] = ' ';
-	 		}
-	 		else{
-	 			a[i] = '\n';
-	 		}
-	 	}
-	 	var x =a.join('');
-	 	return x;
-	 }
+				 result = message+secret;
+				 console.log('result = '+result);
+				 $('#result').val(result);
 
-	 secret = stringtobinary (secret,result);
-	 console.log('secret binary = '+secret);
+				 console.log(whitespacetobinary('**__***_**__**_***__**__'));
 
-	 secret = binarytowhitespace(secret);
-	 console.log('whitespace = '+secret);
-
-
-	});
+				 var separate = text2Binary('`');
+				 detect('abc01100000 001100010011001000110011',separate);
+		});
 
 		});
 	</script>
