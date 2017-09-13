@@ -1,0 +1,166 @@
+<html>
+<body>
+	Isi file anda adalah : <?php echo $_POST["teks"]; ?><br>
+	Pesan rahasia anda adalah : <?php echo $_POST["rahasia"]; ?>
+	<br>Binary dari pesan rahasia : 
+	<?php
+	//fungsi untuk ubah string ke binary
+	function strToBin($input)
+	{
+		if (!is_string($input))
+			return false;
+		$ret = '';
+		for ($i = 0; $i < strlen($input); $i++)
+		{
+			$temp = decbin(ord($input{$i}));
+			$ret .= str_repeat("0", 8 - strlen($temp)) . $temp;
+		}
+		return $ret;
+	}
+	// printf("Binary dari pesan rahasia :")
+	// convert string to array
+	$array = str_split(strToBin($_POST["rahasia"]));
+	print_r($array);
+	echo "<br/>";
+
+	// array check
+	// $var_name=array('A','B','C');
+	// print_r($var_name);
+
+	// if (is_array($array))
+	// 	echo 'This is an array....<br/>';
+	// else
+	// 	echo 'This is not an array....<br/>';
+
+	// $people = array("Peter", "Joe", "Glenn", "Cleveland");
+
+	// if (in_array("0", $array))
+	// {
+	// 	echo "Match found";
+	// }
+	// else
+	// {
+	// 	echo "Match not found";
+	// }
+
+	// echo "<br/>";
+
+	for ($i=0; $i < count($array); $i++) { 
+		# code...
+		if ($array[$i]=="0") {
+			# code...
+			// echo "A<br>";
+			// $tampungA = array("A");
+			// array_replace($array[$i], $tampungA);
+			// echo "A";
+			$array[$i] = "\t";
+		}
+		else
+		{
+		// echo "B";
+			$array[$i] = " ";
+		// echo "B<br>";
+		// $tampungB = array("B");
+		// array_replace($array[$i], $tampungB);
+		}
+	}
+
+	echo "<br/>";
+	// print_r($array);
+	// echo "<br/><br/>";
+	echo implode("", $array);
+
+	// $myfile = fopen("whitespace.txt", "w") or die("Unable to open file!");
+	// // $txt = "John Doe\n";
+	// fwrite($myfile, $_POST["teks"]);
+	// // $txt = "Jane Doe\n";
+	// fwrite($myfile, implode("", $array));
+	// fclose($myfile);
+
+	$handle = fopen("file.txt", "w");
+	fwrite($handle, $_POST["teks"]);
+	fwrite($handle, implode("", $array));
+	fclose($handle);
+
+	// header('Content-Type: application/octet-stream');
+	// header('Content-Disposition: attachment; filename='.basename('file.txt'));
+	// header('Expires: 0');
+	// header('Cache-Control: must-revalidate');
+	// header('Pragma: public');
+	// header('Content-Length: ' . filesize('file.txt'));
+	// readfile('file.txt');
+	// exit;
+
+
+	// echo "<br>array check";
+	// echo $array[0];
+
+	// echo is_array($array) ? "this is array";
+	// echo "\n";
+
+	// for ($i=0; $i < count($array); $i++) { 
+	// 	# code...
+	// 	echo $array[$i];
+	// 	echo "<br>";
+	// }
+
+
+
+	// echo(strToBin($_POST["rahasia"]));
+	// $array = str_split(strToBin($_POST["rahasia"]));
+	// printf('<br>');
+	// print_r($array);
+	// echo "<br>Hasil steganografi pesan rahasia : ";
+	// for ($i=0; $i < 10; $i++) { 
+	// 	# code...
+	// 	if ($array[$i]==1) {
+	// 		# code...
+	// 		$array[$i] = "A";
+	// 		$i--;
+	// 	}
+	// 	if ($array[$i]==0) {
+	// 		# code...
+	// 		$array[$i] = "B";
+	// 		$i--;
+	// 	}
+	// 	break;
+	// }
+	// print_r($array);
+	// fungsi untuk ubah binary ke karakter whitespace
+	// function whitespace($input)
+	// {
+	// 	for ($i=0; $i < 1; $i++) { 
+	// 	# code...
+	// 	if ($input[$i]==1) {
+	// 			// print_r("1");
+	// 		// echo "\t";
+	// 		$input[$i]=array("a");
+	// 		# code...
+	// 	}
+	// 	if ($input[$i]==0) {
+	// 			// print_r("0");
+	// 		// echo "\n";
+	// 		$input[$i]=array("b");
+	// 		# code...
+	// 	}
+	// 	}
+	// }
+	// $convert = whitespace($array);
+	
+	// // crete file to txt
+	// $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+	// $txt = $_POST["teks"];;
+	// fwrite($myfile, $txt);
+	// $txt = strToBin($_POST["rahasia"]);
+	// fwrite($myfile, $txt);
+	// fclose($myfile);
+
+	// method 2
+	// $cars = array("Volvo", "BMW", "Toyota");
+	// $json_data = implode("", $array);
+	// file_put_contents("records.txt", $json_data);
+
+
+	?>
+</body>
+</html>

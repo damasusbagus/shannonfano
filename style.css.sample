@@ -1,0 +1,65 @@
+// h1
+// {
+// 	text-align: center;
+// }
+// h2
+// {
+// 	text-align: center;
+// }
+// div.opt
+// {
+// 	border-style: solid;
+// 	text-align: center;
+// 	background-color: red;
+// 	margin: auto;
+// 	height: 200px;
+// 	width: 200px;
+// 	top: 50%;
+// 	left: 50%;
+
+// }
+
+.header{
+	width: 50%;
+	height: 50px;
+	background-color: gray;
+	margin: auto;
+	text-align: center;
+	border: 1px solid;
+	// vertical-align: middle;
+}
+
+.content{
+	margin :auto;
+	width: 50%;
+	border: 1px solid;
+	// border: 3px solid #73AD21;
+	padding: 10px;
+	p{
+		text-align: center;
+	}
+	.button{
+		display: none;
+	}
+}
+
+.center
+{
+	text-align: center;
+}
+
+.button{
+	margin: auto;
+	border: 1px solid black;
+}
+
+.title
+{
+	// margin:auto;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.option{
+	padding: 20px;
+}

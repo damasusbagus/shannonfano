@@ -1,0 +1,20 @@
+.header{
+    background-color: #1b5e20;
+    color: white;
+	margin: auto;
+	text-align: center;
+	width: 25%;
+    padding: 15px 0;
+}
+.content{
+    background-color: #a5d6a7;
+    margin: auto;
+    text-align: center;
+    width: 25%;
+    height: 100%;
+    padding: 25px 0;
+    label{
+    	text-align: left;
+    	// margin-left: 
+    }
+}

@@ -1,0 +1,71 @@
+<html>
+<head>
+	<title>Shannon Fano</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$('button').click(function(){
+				var message = $('.message').val();
+	var secret = $('.secret').val();
+	var result = '';
+	console.log('secret = '+secret);
+
+
+	 // convert string to binary
+	 function stringtobinary(a,b){
+	 	// for (var i = 0; i < a.length; i++) {
+	 	// 	return a[i].charCodeAt(0).toString(2) + "";
+	 	// }
+	 	alert(a);
+	 		 	return a.charCodeAt(0).toString(2) + "";
+// return a;
+	 }
+
+	 //convert binary to whitespace
+	 function binarytowhitespace(c){
+	 	var a = c.split('');
+	 	for (var i = 0; i < a.length; i++) {
+	 		if(a[i] == '0'){
+	 			a[i] = ' ';
+	 		}
+	 		else{
+	 			a[i] = '\n';
+	 		}
+	 	}
+	 	var x =a.join('');
+	 	return x;
+	 }
+
+	 secret = stringtobinary (secret,result);
+	 console.log('secret binary = '+secret);
+
+	 secret = binarytowhitespace(secret);
+	 console.log('whitespace = '+secret);
+
+
+	});
+
+		});
+	</script>
+</head>
+
+<body>
+	<div style="display: inline-block; width: 50%; border: 1px solid gray;">
+		<div>Please Insert Your Message Here</div>
+		<div>
+			<input class="message" type="text" name="message" value='abc'>
+		</div>
+	</div>
+	<div style="display: inline-block; width: 50%; border: 1px solid gray;">
+		<div>Please Insert Your Secret Message Here</div>
+		<div>
+			<input class="secret" type="text" name="secret" value='123'>
+		</div>
+	</div>
+	<div style="text-align: center;"><button type="button">Generate</button></div>
+	<div>Result</div>
+	<div><input id="result"></div>
+</body>
+
+</html
