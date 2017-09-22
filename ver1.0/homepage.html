@@ -14,7 +14,7 @@
 		 	} 
 		 	return output.join("");
 		 }
-		 console.log('text2binary='+text2Binary('abc'));
+		 // console.log('text2binary='+text2Binary('abc'));
 
 		 //convert binary to whitespace
 		 function binarytowhitespace(a){
@@ -89,25 +89,54 @@
 		$(document).ready(function(){
 
 			$('button').click(function(){
-				var message = $('.message').val();
-				var secret = $('.secret').val();
-				var result;
+				var message = $('.message').val(),
+					secret = $('.secret').val(),
+					symbol = '`';
+					result;
 				// console.log('secret = '+result);
 
 				 secret = text2Binary (secret,result);
-				 console.log('secret binary = '+secret);
+				 // console.log('secret binary = '+secret);
 
+				 console.log('symbol : '+symbol)
+
+				 //convert symbol -> binary -> whitespace
+				 symbol = text2Binary(symbol);
+				 console.log('binary symbol : '+symbol);
+				 symbol = binarytowhitespace(symbol);
+				 console.log('whitespace symbol : '+symbol);
+
+				 // convert secret message from binary ro whitespace
 				 secret = binarytowhitespace(secret);
-				 console.log('whitespace = '+secret);
+				 // console.log('whitespace = '+secret);
 
-				 result = message+secret;
+
+				 //combine all data to be result
+				 result = message+symbol+secret;
 				 console.log('result = '+result);
 				 $('#result').val(result);
 
-				 console.log(whitespacetobinary('**__***_**__**_***__**__'));
 
-				 var separate = text2Binary('`');
-				 detect('abc01100000 001100010011001000110011',separate);
+				 // Decription process
+				 var source = $('#result').val(),
+				 	 symbol = '`',
+			 		 SymbolConvert = binarytowhitespace(text2Binary(symbol)), //convert symbol to whitespace
+				 	 SymbolPosition = detect(source,SymbolConvert);
+				 	 console.log('detect : '+SymbolPosition);
+
+				 	 // get secret code by delete first 'SymbolPosition' letter
+				 	 secret = source.substr(SymbolPosition);
+				 	 console.log('source delete : '+secret);
+
+				 	 // get first 'SymbolPosition' letter
+				 	 message = source.slice(0, SymbolPosition-8);
+					 console.log('message : '+message);
+
+					 // convert whitespace to text
+				 	 secret = binarytotext(whitespacetobinary(secret));
+				 	 console.log(secret);
+
+				 	 $('#decript').val(message+secret);
 		});
 
 		});
@@ -130,6 +159,9 @@
 	<div style="text-align: center;"><button type="button">Generate</button></div>
 	<div>Result</div>
 	<div><input id="result"></div>
+
+	<div>Decript Result</div>
+	<input id='decript'>
 </body>
 
 </html
