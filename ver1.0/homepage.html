@@ -85,10 +85,63 @@
 		 		}
 		 	}
 		 }
+		 
+		// function for shannon fano compression
+		// Compress text, returns a byte array
+	    //
+	    function compressText($text)
+	    {
+	        //get the text as a byte array
+	        $src_bin = textToArray($text);
+	    
+	    	// return compressBin($src_bin);
+	    	// console.log('textToArray : '+src_bin)
+	    }
+
+	    //convert input text to a byte array
+	    function textToArray($text)
+	    {
+	        $ar = array_slice(unpack("C*", "\0".$text), 1);
+	        return $ar;
+	        // console.log('')
+	    }
+
+	    // get frecuency
+	    function getFrequency(string) {
+	    	var freq = {};
+	    	for (var i=0; i<string.length;i++) {
+	    		var character = string.charAt(i);
+	    		if (freq[character]) {
+	    			freq[character]++;
+	    		} else {
+	    			freq[character] = 1;
+	    		}
+	    	}
+	    	return freq;
+	    };
+
+	    // sort object from high frecuency
+	    function sortAssocObject(list) {
+		    var sortable = [];
+		    for (var key in list) {
+		        sortable.push([key, list[key]]);
+		    }
+
+		    sortable.sort(function(a, b) {
+		        return (a[1] > b[1] ? -1 : (a[1] < b[1] ? 1 : 0));
+		    });
+
+		    var orderedList = {};
+		    for (var i = 0; i < sortable.length; i++) {
+		        orderedList[sortable[i][0]] = sortable[i][1];
+		    }
+
+		    return orderedList;
+		}
 
 		$(document).ready(function(){
 
-			$('button').click(function(){
+			$('.whitespace').click(function(){
 				var message = $('.message').val(),
 					secret = $('.secret').val(),
 					symbol = '`';
@@ -115,6 +168,7 @@
 				 result = message+symbol+secret;
 				 console.log('result = '+result);
 				 $('#result').val(result);
+				 $('.source').val(result);
 
 
 				 // Decription process
@@ -134,11 +188,27 @@
 
 					 // convert whitespace to text
 				 	 secret = binarytotext(whitespacetobinary(secret));
-				 	 console.log(secret);
+				 	 // console.log(secret);
 
 				 	 $('#decript').val(message+secret);
-		});
 
+
+		 		var a = result.toString();
+		 			b = getFrequency(a),
+		 			c = sortAssocObject(b);
+
+
+
+				console.log(b);
+				console.log(c);
+
+			});
+			
+
+			// $('.shannon-fano').click(function(){
+			// 	var source = $('#result').val();
+			// 	console.log(compressText(source))
+			// });
 		});
 	</script>
 </head>
@@ -156,12 +226,19 @@
 			<input class="secret" type="text" name="secret" value='123'>
 		</div>
 	</div>
-	<div style="text-align: center;"><button type="button">Generate</button></div>
+	<div style="text-align: center;"><button type="button" class='whitespace'>Generate</button></div>
 	<div>Result</div>
 	<div><input id="result"></div>
 
 	<div>Decript Result</div>
 	<input id='decript'>
+
+	<div class='compression'>
+		<h1>Shannon Fano</h1>
+		<input class='source'>
+	</div>
+	<button class="shannon-fano">compress</button>
+	<input class='result-compress'>
 </body>
 
 </html
