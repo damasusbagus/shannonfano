@@ -1,0 +1,114 @@
+<script type="text/javascript">
+	function frequency(str){
+		var freqs={};
+		for (var i in str){
+
+			if(freqs[str[i]]==undefined){
+
+				freqs[str[i]]=1;
+			}
+			else {
+				freqs[str[i]]=freqs[str[i]]+1;
+			}
+		}
+
+		return freqs;
+	}
+
+	function sortfreq(freqs){
+		var tuples=[];
+		for( var let in freqs){
+			tuples.push([freqs[let],let]);
+		}
+		tuples.sort();
+		return tuples.reverse();
+	}
+
+  //Tabel SF
+  var bit = {};
+  function tableSF(tuples)
+  {
+  	var total=0;
+  	for(var i in tuples){
+  		total += tuples[i][0];
+  	}
+
+  	var result = 0;
+  	for (var i = 0; i < tuples.length; i++) {
+  		result+=tuples[i][0];
+  		if (result >= total-result) {
+  			var point = i+1;
+  			break;
+  		}	  	
+  	}
+
+  	var up=[],
+  	down=[];
+  	for (var i = 0; i < point; i++) {
+  		up.push(tuples[i]);
+  		if(bit[tuples[i][1]] == undefined) {
+  			bit[tuples[i][1]] = '0';
+  		}
+  		else {
+  			bit[tuples[i][1]] += '0';
+  		}
+  	}
+
+  	for (var i = point; i < tuples.length; i++) {
+  		down.push(tuples[i]);
+  		if(bit[tuples[i][1]] == undefined) {
+  			bit[tuples[i][1]] = '1';
+  		}
+  		else {
+  			bit[tuples[i][1]] += '1';
+  		}
+  	}
+
+
+  	if(up.length>1){tableSF(up)}
+  		if(down.length>1){tableSF(down)}
+
+  			return bit;
+  	}
+
+  	function encode(text,bit) {
+  		output = '';
+  		for(s in text)
+  			output+=bit[text[s]];
+  		return output;
+  	}
+  	function decode(tableSF,encoded)  
+  	{ 
+  		var start = 0,
+  			output = '';
+
+  		for(var i = 1; i < encoded.length+1; i++) {
+  			substring = encoded.substring(start,i);
+  			var test = getKeyByValue(tableSF, substring)
+  			if (test != undefined) {
+  				start = i;
+  				output += test;
+  				
+  			}
+  		}
+  		return output;
+  	}  
+
+  	function getKeyByValue(object, value) {
+  		return Object.keys(object).find(key => object[key] === value);
+  	}
+
+
+//Source
+var text = 'Huffman Coding algorithm developed by David Huffman in 1952 when he was a graduate student at MIT.',
+frequency = frequency(text),
+sort = sortfreq(frequency),
+tableSF = tableSF(sort);
+console.log('text : '+text);
+console.log(sort);
+console.log(tableSF);
+encode = encode(text,tableSF);
+decode = decode(tableSF,encode);
+console.log(encode);
+console.log(decode);
+</script>

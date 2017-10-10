@@ -1,0 +1,47 @@
+	
+	var person = {
+    a:30,
+    b:20,  
+    c:10,
+    d:5,
+    e:5
+};
+
+var data1 = {data:'a', frek:30},
+ data2 = {data:'b', frek:20},
+ data3 = {data:'c', frek:10},
+ data4 = {data:'d', frek:5},
+ data5 = {data:'e', frek:5},
+ array = [data1,data2,data3,data4,data5];
+ console.log(array[2].frek);
+
+function Node(data) {
+    this.data = data;
+    this.parent = null;
+    this.children = [];
+}
+function Tree(data) {
+    var node = new Node(data);
+    this._root = node;
+}
+var tree = new Tree(array);
+console.log(tree);
+ 
+tree._root;
+var i=0,
+tmp = 0,
+tmp2 = 0;
+while (i < array.length) {
+    console.log(array[i].data);
+    tmp+=array[i].frek;
+    i++;
+}
+for(var i = 0; i <= array.length ; i++) {
+  if(tmp2 <= tmp/2) {
+        tmp2+=array[i].frek;
+          tree._root.children.push(new Node(array[j].data));
+          tree._root.children[j].parent = tree;
+  }
+}
+console.log(tmp2);
+
