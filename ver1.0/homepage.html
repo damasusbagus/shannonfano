@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>Shannon Fano</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 
 		 // convert string to binary
@@ -205,10 +205,10 @@
 			});
 			
 
-			// $('.shannon-fano').click(function(){
-			// 	var source = $('#result').val();
-			// 	console.log(compressText(source))
-			// });
+			$('.shannon-fano').click(function(){
+				var source = $('#result').val();
+				console.log(compressText(source))
+			});
 		});
 	</script>
 </head>
@@ -232,13 +232,13 @@
 
 	<div>Decript Result</div>
 	<input id='decript'>
-<!-- 
+
 	<div class='compression'>
 		<h1>Shannon Fano</h1>
 		<input class='source'>
 	</div>
 	<button class="shannon-fano">compress</button>
-	<input class='result-compress'> -->
+	<input class='result-compress'>
 </body>
 
 </html

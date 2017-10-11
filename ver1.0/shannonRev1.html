@@ -20,8 +20,17 @@
 		for( var let in freqs){
 			tuples.push([freqs[let],let]);
 		}
-		tuples.sort();
-		return tuples.reverse();
+		return tuples;
+		// return tuples.reverse();
+	}
+
+	function sortFunction(a, b) {
+		if (a[0] === b[0]) {
+			return 0;
+		}
+		else {
+			return (a[0] < b[0]) ? -1 : 1;
+		}
 	}
 
   //Tabel SF
@@ -67,7 +76,7 @@
 
   	if(up.length>1){tableSF(up)}
   		if(down.length>1){tableSF(down)}
-
+  			// console.log(bit);
   			return bit;
   	}
 
@@ -100,11 +109,15 @@
 
 
 //Source
-var text = 'abc 		       		   	  		  	   		  		',
+var text = 'According to the formulations of Daniels,[3] abjads differ from alphabets in that only consonants, not vowels, are represented among the basic graphemes. Abjads differ from abugidas, another category defined by Daniels, in that in abjads, the vowel sound is implied by phonology, and where vowel marks exist for the system, such as nikkud for Hebrew and ḥarakāt for Arabic, their use is optional and not the dominant (or literate) form. Abugidas mark the vowels (other than the "inherent" vowel) with a diacritic, a minor attachment to the letter, or a standalone glyph. Some abugidas use a special symbol to suppress the inherent vowel so that the consonant alone can be properly represented. In a syllabary, a grapheme denotes a complete syllable, that is, either a lone vowel sound or a combination of a vowel sound with one or more consonant sounds.',
 frequency = frequency(text),
-sort = sortfreq(frequency),
+array2D = sortfreq(frequency),
+sort = array2D.sort(function(a, b) {
+  return b[0] - a[0];
+}),
 tableSF = tableSF(sort);
 console.log('text : '+text);
+console.log(frequency);
 console.log(sort);
 console.log(tableSF);
 encode = encode(text,tableSF);
