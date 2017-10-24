@@ -1,146 +1,16 @@
 <html>
 <head>
 	<title>Shannon Fano</title>
+	<link rel="stylesheet" href="bootstrap.css">
 	<script src="jquery-3.2.1.min.js"></script>
+	<script src='custom.js'></script>
 	<script type="text/javascript">
 
-		 // convert string to binary
-		 function text2Binary(string) {
-		 	var length = string.length,
-		 	output = [];
-		 	for (var i = 0;i < length; i++) {
-		 		var bin = string[i].charCodeAt().toString(2);
-		 		output.push(Array(8-bin.length+1).join("0") + bin);
-		 	} 
-		 	return output.join("");
-		 }
-		 // console.log('text2binary='+text2Binary('abc'));
-
-		 //convert binary to whitespace
-		 function binarytowhitespace(a){
-		 	var data = a.split('');
-		 	for (var i = 0; i < a.length; i++) {
-		 		if(data[i] == '0'){
-		 			data[i] = ' ';
-		 		}
-		 		else{
-		 			data[i] = '\t';
-		 		}
-		 	}
-		 	var a = data.join('');
-		 	return a;
-		 }
-
-		 //convert binary to text
-		 function binarytotext(binary) {
-		 	return binary.replace(/[01]{8}/g, function (v) {
-		 		return String.fromCharCode(parseInt(v, 2));
-		 	});
-		 }
-
-		 //convert whitespace to binary
-		 function whitespacetobinary(a){
-		 	var data = a.split('');
-		 	for (var i = 0; i < a.length; i++) {
-		 		if(data[i] == ' '){
-		 			data[i] = '0';
-		 		}
-		 		else{
-		 			data[i] = '1';
-		 		}
-		 	}
-		 	var a = data.join('');
-		 	return a;
-		 }
-
-		 //detect separate character position
-		 function detect(data,data2){
-		 	var split = data.split('');
-		 	var separate = data2.split('');
-		 	for (var i = 0; i < split.length; i++) {
-		 		if (split[i] == separate[0]){
-		 			i++
-		 			if (split[i] == separate[1]){
-		 				i++
-		 				if (split[i] == separate[2]){
-		 					i++
-		 					if (split[i] == separate[3]){
-		 						i++
-		 						if (split[i] == separate[4]){
-		 							i++
-		 							if (split[i] == separate[5]){
-		 								i++
-		 								if (split[i] == separate[6]){
-		 									i++
-		 									if (split[i] == separate[7]){
-		 										i++
-		 										return i;
-		 									}
-		 								}
-		 							}
-		 						}
-		 					}
-		 				}
-		 			}
-		 		}
-		 	}
-		 }
-		 
-		// function for shannon fano compression
-		// Compress text, returns a byte array
-	    //
-	    function compressText($text)
-	    {
-	        //get the text as a byte array
-	        $src_bin = textToArray($text);
-	    
-	    	// return compressBin($src_bin);
-	    	// console.log('textToArray : '+src_bin)
-	    }
-
-	    //convert input text to a byte array
-	    function textToArray($text)
-	    {
-	        $ar = array_slice(unpack("C*", "\0".$text), 1);
-	        return $ar;
-	        // console.log('')
-	    }
-
-	    // get frecuency
-	    function getFrequency(string) {
-	    	var freq = {};
-	    	for (var i=0; i<string.length;i++) {
-	    		var character = string.charAt(i);
-	    		if (freq[character]) {
-	    			freq[character]++;
-	    		} else {
-	    			freq[character] = 1;
-	    		}
-	    	}
-	    	return freq;
-	    };
-
-	    // sort object from high frecuency
-	    function sortAssocObject(list) {
-		    var sortable = [];
-		    for (var key in list) {
-		        sortable.push([key, list[key]]);
-		    }
-
-		    sortable.sort(function(a, b) {
-		        return (a[1] > b[1] ? -1 : (a[1] < b[1] ? 1 : 0));
-		    });
-
-		    var orderedList = {};
-		    for (var i = 0; i < sortable.length; i++) {
-		        orderedList[sortable[i][0]] = sortable[i][1];
-		    }
-
-		    return orderedList;
-		}
-
 		$(document).ready(function(){
-
+			  $(".menu h3").after().click(function(){
+    $(".tabBlock").toggle();
+    $(this).toggleClass('expand')
+  });
 			$('.whitespace').click(function(){
 				var message = $('.message').val(),
 					secret = $('.secret').val(),
@@ -211,10 +81,85 @@
 			});
 		});
 	</script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style type="text/css">
+
+	</style>
 </head>
 
 <body>
-	<div style="display: inline-block; width: 50%; border: 1px solid gray;">
+	<div id="page-wrap">
+		<div class="menu">
+			<h3>Menu</h3>
+			<div class="tabBlock">
+				<ul class="menu">
+					<li class="enkripsi">Enkripsi</li>
+					<li class="dekripsi">Dekripsi</li>
+					<li class="kompresi">Kompresi</li>
+					<li class="dekompresi">Dekompresi</li>
+				</ul>
+			</div>
+		</div>
+		<div class="content enkripsi">
+			<div class="input">
+				<h4>Masukkan Teks</h4>
+				<textarea rows="4" cols="50" class="form-control row-1" placeholder="Masukkan teks di sini"></textarea>
+				<h4>Masukkan Pesan Rahasia</h4>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Masukkan pesan rahasia di sini"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Enkripsi</button>
+			<div class="output">
+				<h4>Hasil Enkripsi</h4>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil enkripsi akan muncul di sini"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Simpan File</button>
+
+		</div>
+		<div class="content dekripsi">
+			<div class="input">
+				<p>Silahkan pilih file yang telah di enkripsi</p>
+				<button type="button" class="btn btn-default">Buka File</button>
+				<h5>Isi File</h5>
+				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file akan tampil di sini"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Dekripsi</button>
+			<div class="output">
+				<h4>Hasil Dekripsi</h4>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil dekripsi akan muncul di sini"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Simpan File</button>
+		</div>
+		<div class="content kompresi">
+			<div class="input">
+				<p>Silahkan pilih file yang akan dikompres</p>
+				<button type="button" class="btn btn-default">Buka File</button>
+				<h5>Isi File</h5>
+				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file akan tampil di sini"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Kompres</button>
+			<div class="output">
+				<h4>Hasil Kompresi</h4>
+				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file setelah melalui proses kompresi"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Simpan File</button>
+		</div>
+		<div class="content dekompresi">
+			<div class="input">
+				<p>Silahkan pilih file yang akan didekompres</p>
+				<button type="button" class="btn btn-default">Buka File</button>
+				<h5>Isi File</h5>
+				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file akan tampil di sini"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Dekompres</button>
+			<div class="output">
+				<h4>Hasil Dekompresi</h4>
+				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file setelah melalui proses dekompresi"></textarea>
+			</div>
+			<button type="button" class="btn btn-default">Simpan File</button>
+		</div>
+	</div>
+
+	<!-- <div style="display: inline-block; width: 50%; border: 1px solid gray;">
 		<div>Please Insert Your Message Here</div>
 		<div>
 			<input class="message" type="text" name="message" value='abc'>
@@ -238,7 +183,7 @@
 		<input class='source'>
 	</div>
 	<button class="shannon-fano">compress</button>
-	<input class='result-compress'>
+	<input class='result-compress'> -->
 </body>
 
 </html

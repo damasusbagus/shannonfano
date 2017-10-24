@@ -1,0 +1,73 @@
+#page-wrap {
+	max-width: 720px;
+	margin: 0 auto;
+}
+.menu {
+	height: auto;
+	background-color: #ededed; 
+	padding: 0;
+	padding: 10px;
+	color: gray;
+}
+.menu span h1 {
+	color: #3e3e3e;
+	margin: 0;
+}
+.menu span h2 {
+	color: #3e3e3e;
+	margin: 0;
+}
+ul.menu {
+	list-style: none none;
+	padding: 0;
+	margin: 0;
+}
+.menu h3 {
+	margin: 0;
+	position: relative;
+}
+.menu h3:after {
+	content: '+';
+	position: absolute;
+	right: 10px;
+	font-size: 20px;
+    top: 4px;
+
+}
+ul.menu li {
+	padding-bottom: 5px;
+}
+.content {
+	text-align: center;
+}
+.input,
+.output {
+	margin: 15px 0;
+}
+.input .row-1 {
+	margin-bottom: 20px;
+}
+.output {
+	padding-top: 15px;
+	border-top: 1px solid #c40;
+}
+.form-control:focus {
+	border-color: #c40;
+	box-shadow: none;
+}
+.btn-default {
+	background-color: #c40;
+	color: #fff;
+}
+.unclickable {
+	pointer-events: none;
+}
+.content.dekripsi h5 {
+	margin-top: 20px;
+}
+.content.dekripsi,
+.content.kompresi,
+.content.dekompresi,
+.tabBlock {
+	display: none;
+}

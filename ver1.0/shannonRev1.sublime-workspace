@@ -1,0 +1,264 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fon",
+				"font-weight"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"ove",
+				"overflow-x"
+			],
+			[
+				"margi",
+				"margin-bottom"
+			],
+			[
+				"margin-",
+				"margin-top"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 124.0,
+		"last_filter": "Package Control: instal",
+		"selected_items":
+		[
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 413.0
+	},
+	"console":
+	{
+		"height": 320.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/etc/hosts",
+		"/opt/lampp/etc/extra/httpd-vhosts.conf",
+		"/opt/lampp/etc/httpd.conf",
+		"/opt/lampp/htdocs/maxjaxusa/app/code/core/Mage/Core/Model/Session/Abstract/Varien.php",
+		"/opt/lampp/htdocs/maxjaxusa/app/etc/modules/Ophirah_Core.xml",
+		"/opt/lampp/htdocs/maxjaxusa/app/etc/local.xml",
+		"/opt/lampp/htdocs/gesusa/app/etc/local.xml",
+		"/opt/lampp/htdocs/dannmar/app/etc/local.xml",
+		"/opt/lampp/htdocs/maxjaxusa/var/log/system.log",
+		"/opt/lampp/htdocs/maxjaxusa/var/log/exception.log",
+		"/root/.bashrc",
+		"/opt/lampp/htdocs/texmetals/pub/static/frontend/Texmetals/default/en_US/js/jquery.texmetals.default.js",
+		"/opt/lampp/htdocs/texmetals/app/design/frontend/Texmetals/default/Aheadworks_Ajaxcartpro/templates/ui/product/image.phtml",
+		"/opt/lampp/htdocs/texmetals/app/design/frontend/Texmetals/default/Magento_Braintree/web/js/view/payment/method-renderer/cc-form.js",
+		"/opt/lampp/htdocs/texmetals/app/design/frontend/Texmetals/default/Magento_Checkout/web/js/view/payment/default.js",
+		"/opt/lampp/htdocs/texmetals/app/design/frontend/Texmetals/default/web/js/jquery.texmetals.default.js",
+		"/opt/lampp/htdocs/texmetals/var/log/debug.log",
+		"/opt/lampp/htdocs/texmetals/var/log/exception.log",
+		"/opt/lampp/htdocs/texmetals/app/code/CP/LimitOrders/Plugin/Payment/MethodList.php",
+		"/opt/lampp/htdocs/texmetals/app/design/frontend/Texmetals/default/Magento_Catalog/web/css/source/_module.less",
+		"/opt/lampp/htdocs/texmetals/app/design/frontend/Texmetals/default/Magento_Checkout/web/css/source/module/checkout/_checkout.less",
+		"/home/bagus/Downloads/Default Template Subject.eml",
+		"/opt/lampp/htdocs/swift/composer.lock",
+		"/opt/lampp/htdocs/swift/composer.json",
+		"/opt/lampp/htdocs/texmetals/app/code/CP/UpgradeScriptSecond/Setup/UpgradeData.php",
+		"/opt/lampp/htdocs/texmetals/app/code/CP/UpgradeScriptSecond/etc/module.xml",
+		"/opt/lampp/htdocs/swift/app/etc/di.xml",
+		"/opt/lampp/htdocs/swift/app/etc/config.php",
+		"/opt/lampp/htdocs/swift/.htaccess",
+		"/opt/lampp/htdocs/gesusa/app/code/core/Mage/Core/Model/Session/Abstract/Varien.php",
+		"/opt/lampp/htdocs/gesusa/includes/config.php",
+		"/opt/lampp/htdocs/shannonfano/ver1.0/homepage.html",
+		"/opt/lampp/htdocs/gesusa/app/etc/modules/Ophirah_RequestNotification.xml",
+		"/opt/lampp/htdocs/gesusa/app/etc/modules/Ophirah_Qquoteadv.xml",
+		"/opt/lampp/htdocs/gesusa/app/etc/modules/Ophirah_Fakepro.xml",
+		"/opt/lampp/htdocs/gesusa/app/etc/modules/Ophirah_Crmaddon.xml"
+	],
+	"find":
+	{
+		"height": 21.0
+	},
+	"find_in_files":
+	{
+		"height": 98.0,
+		"where_history":
+		[
+			"/opt/lampp/htdocs/maxjaxusa/app/etc/modules",
+			"/opt/lampp/htdocs/maxjaxusa/app/etc",
+			"/opt/lampp/htdocs/texmetals/app",
+			"/opt/lampp/htdocs/texmetals/lib"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"vhost",
+			"quote",
+			"admin",
+			"vho",
+			"In Shiner",
+			"Pick Up – In Shiner, TX",
+			"ups_sure",
+			"ups_mail",
+			"wrapper-content",
+			"s_method_ups_sure_ups_sure",
+			"sure",
+			"ups_sure",
+			"disclaim",
+			"transform",
+			"screen__xs",
+			"screen_xs",
+			"xs",
+			"mobile__xs",
+			"768",
+			"}\n",
+			"produc",
+			"product",
+			"catalog",
+			"cart",
+			"disclaim",
+			"disclaimer",
+			"cart",
+			"url",
+			"base url",
+			"url",
+			"base",
+			"disclai",
+			"vhost",
+			"class",
+			"vhost"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "shannonRev1.sublime-project",
+	"replace":
+	{
+		"height": 38.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 451.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
