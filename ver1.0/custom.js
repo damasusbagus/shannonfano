@@ -1,3 +1,31 @@
+//styling JS
+$(document).ready(function(){
+  $(".menu h3").click(function(){
+    $(".tabBlock").toggle('slow');
+    $(this).toggleClass('active');
+  });
+  $("li.enkripsi").click(function(){
+    $('.content').hide();
+    $('.content.enkripsi').show();
+  });
+  $("li.dekripsi").click(function(){
+    $('.content').hide();
+    $('.content.dekripsi').show();
+  });
+  $("li.kompresi").click(function(){
+    $('.content').hide();
+    $('.content.kompresi').show();
+  });
+  $("li.dekompresi").click(function(){
+    $('.content').hide();
+    $('.content.dekompresi').show();
+  });
+});
+  function myFunction(x) {
+    x.classList.toggle("change");
+    $(".tabBlock").toggle('slow');
+  }
+
 // convert string to binary
 function text2Binary(string) {
   var length = string.length,

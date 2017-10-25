@@ -7,10 +7,7 @@
 	<script type="text/javascript">
 
 		$(document).ready(function(){
-			  $(".menu h3").after().click(function(){
-    $(".tabBlock").toggle();
-    $(this).toggleClass('expand')
-  });
+			  
 			$('.whitespace').click(function(){
 				var message = $('.message').val(),
 					secret = $('.secret').val(),
@@ -90,17 +87,23 @@
 <body>
 	<div id="page-wrap">
 		<div class="menu">
+			<div class="container" onclick="myFunction(this)">
+				<div class="bar1"></div>
+				<div class="bar2"></div>
+				<div class="bar3"></div>
+			</div>
 			<h3>Menu</h3>
 			<div class="tabBlock">
-				<ul class="menu">
-					<li class="enkripsi">Enkripsi</li>
-					<li class="dekripsi">Dekripsi</li>
-					<li class="kompresi">Kompresi</li>
-					<li class="dekompresi">Dekompresi</li>
+				<ul class="menu-list">
+					<li class="enkripsi">> Enkripsi</li>
+					<li class="dekripsi">> Dekripsi</li>
+					<li class="kompresi">> Kompresi</li>
+					<li class="dekompresi">> Dekompresi</li>
 				</ul>
 			</div>
 		</div>
 		<div class="content enkripsi">
+			<h3>Enkripsi Whitespace</h3>
 			<div class="input">
 				<h4>Masukkan Teks</h4>
 				<textarea rows="4" cols="50" class="form-control row-1" placeholder="Masukkan teks di sini"></textarea>
@@ -116,6 +119,7 @@
 
 		</div>
 		<div class="content dekripsi">
+			<h3>Dekripsi Whitespace</h3>
 			<div class="input">
 				<p>Silahkan pilih file yang telah di enkripsi</p>
 				<button type="button" class="btn btn-default">Buka File</button>
@@ -130,6 +134,7 @@
 			<button type="button" class="btn btn-default">Simpan File</button>
 		</div>
 		<div class="content kompresi">
+			<h3>Kompresi Shannon Fano</h3>
 			<div class="input">
 				<p>Silahkan pilih file yang akan dikompres</p>
 				<button type="button" class="btn btn-default">Buka File</button>
@@ -144,6 +149,7 @@
 			<button type="button" class="btn btn-default">Simpan File</button>
 		</div>
 		<div class="content dekompresi">
+			<h3>Dekompresi Shannon Fano</h3>
 			<div class="input">
 				<p>Silahkan pilih file yang akan didekompres</p>
 				<button type="button" class="btn btn-default">Buka File</button>

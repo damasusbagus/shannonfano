@@ -1,6 +1,7 @@
 #page-wrap {
 	max-width: 720px;
 	margin: 0 auto;
+	padding-bottom: 50px;
 }
 .menu {
 	height: auto;
@@ -8,6 +9,7 @@
 	padding: 0;
 	padding: 10px;
 	color: gray;
+	border-bottom: 2px solid #c40;
 }
 .menu span h1 {
 	color: #3e3e3e;
@@ -17,23 +19,53 @@
 	color: #3e3e3e;
 	margin: 0;
 }
-ul.menu {
+ul.menu-list {
 	list-style: none none;
 	padding: 0;
 	margin: 0;
 }
+ul.menu-list li:hover {
+	color: #c40;
+}
+ul.menu-list li {
+	cursor: pointer;
+}
 .menu h3 {
 	margin: 0;
-	position: relative;
+    display: inline-block;
+    position: relative;
+    bottom: 10px;
+    left: -10px;
 }
-.menu h3:after {
-	content: '+';
-	position: absolute;
-	right: 10px;
-	font-size: 20px;
-    top: 4px;
 
+/*menu bar*/
+.container {
+    display: inline-block;
+    cursor: pointer;
+    width: auto;
 }
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #c40;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+}
+/**/
+
 ul.menu li {
 	padding-bottom: 5px;
 }
@@ -62,7 +94,7 @@ ul.menu li {
 .unclickable {
 	pointer-events: none;
 }
-.content.dekripsi h5 {
+.content h5 {
 	margin-top: 20px;
 }
 .content.dekripsi,
@@ -70,4 +102,22 @@ ul.menu li {
 .content.dekompresi,
 .tabBlock {
 	display: none;
+}
+.tabBlock {
+	margin-left: 40px;
+}
+.content > h3 {
+	text-align: left;
+    background-color: #c40;
+    color: white;
+    margin-top: 10px;
+    padding: 5 10px;
+}
+.btn {
+	cursor: pointer;
+}
+.btn:hover {
+	background-color: white;
+	border: 1px solid #c40;
+	color: #c40;
 }
