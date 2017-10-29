@@ -1,5 +1,79 @@
+// save file enkripsi
+function DownloadEnkripsi(text, name, type) {
+  var a = document.getElementById("SimpanEnkripsi");
+  var file = new Blob([text], {type: type});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+}
+// ---
+
+// save file dekripsi
+function DownloadDekripsi(text, name, type) {
+  var a = document.getElementById("SimpanDekripsi");
+  var file = new Blob([text], {type: type});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+}
+// ---
+
+// open file
+var reader;  
+function checkFileAPI() {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        reader = new FileReader();
+        return true; 
+    } else {
+        alert('The File APIs are not fully supported by your browser. Fallback required.');
+        return false;
+    }
+}
+
+function readText(filePath) {
+  var output = ""; //placeholder for text output
+  if(filePath.files && filePath.files[0]) {           
+    reader.onload = function (e) {
+      output = e.target.result;
+      console.log(output);
+          displayContents(output);
+      };//end onload()
+      reader.readAsText(filePath.files[0]);
+  }//end if html5 filelist support
+  else if(ActiveXObject && filePath) { //fallback to IE 6-8 support via ActiveX
+    try {
+      reader = new ActiveXObject("Scripting.FileSystemObject");
+          var file = reader.OpenTextFile(filePath, 1); //ActiveX File Object
+          output = file.ReadAll(); //text contents of file
+          file.Close(); //close file "input stream"
+          displayContents(output);
+          console.log(output);
+        } catch (e) {
+          if (e.number == -2146827859) {
+            alert('Unable to access local files due to browser security settings. ' + 
+             'To overcome this, go to Tools->Internet Options->Security->Custom Level. ' + 
+             'Find the setting for "Initialize and script ActiveX controls not marked as safe" and change it to "Enable" or "Prompt"'); 
+          }
+        }       
+      }
+  else { //this is where you could fallback to Java Applet, Flash or similar
+    return false;
+  }       
+  return true;
+}   
+
+function displayContents(txt) {
+    // var el = document.getElementById('main'); 
+    // el.innerHTML = txt; //display output in DOM
+    // alert(txt);
+    $('.content.dekripsi .input textarea').val(txt);
+    $('.content.kompresi .input textarea').val(txt);
+}   
+// ---
+
 //styling JS
 $(document).ready(function(){
+  symbol = '~';
+
+  // menu selector
   $(".menu h3").click(function(){
     $(".tabBlock").toggle('slow');
     $(this).toggleClass('active');
@@ -20,7 +94,68 @@ $(document).ready(function(){
     $('.content').hide();
     $('.content.dekompresi').show();
   });
+
+  // Enkripsi whitespace
+  $('.content.enkripsi .input button').click(function() {
+    EnkripsiInput = $('textarea.text').val();
+    SecretInput = $('textarea.secret').val();
+
+    // proses enkripsi
+    input = symbol+SecretInput;
+
+    proses1 = text2Binary(input);
+    proses2 = binarytowhitespace(proses1);
+    result = EnkripsiInput+proses2;
+    console.log(result);
+    // ---
+
+    $('.content.enkripsi .output textarea').val(result);
+
+    DownloadEnkripsi(result, 'enkripsi.txt', 'text/plain');
+  });
+  // ---
+
+  // dekripsi whitespace
+  $('.content.dekripsi .input button').click(function() {
+    var DekripsiInput = $('.content.dekripsi .input textarea').val();
+
+    SymbolToWhitespace = binarytowhitespace(text2Binary(symbol));
+    DeteksiSimbol = detect(DekripsiInput,SymbolToWhitespace);
+
+    // mengambil karakter setelah simbol untuk pesan rahasia
+    PesanRahasia = DekripsiInput.substr(DeteksiSimbol);
+
+    // mengambil karakter dari 0 sampai sebelum pesan rahasia
+    teks = DekripsiInput.slice(0, DeteksiSimbol-8);
+
+    DekripsiPesanRahasia = binarytotext(whitespacetobinary(PesanRahasia));
+    hasil = teks+DekripsiPesanRahasia
+
+    $('.content.dekripsi .output textarea').val(hasil);  
+
+    DownloadDekripsi(hasil, 'dekripsi.txt', 'text/plain'); 
+  });
+
+  // kompresi shannon fano
+  $('.content.kompresi .input button').click(function() {
+    KompresiInput = $('.content.kompresi .input textarea').val();
+    console.log(KompresiInput);
+
+    // Proses Kompresi
+    UrutkanFrekuensi = sortfreq(frequency(KompresiInput));
+    console.log(frequency(KompresiInput));
+    console.log(sortfreq(frequency(KompresiInput)));
+    // TableSF = tableSF(UrutkanFrekuensi);
+    // HasilKompresi = encode(KompresiInput,TableSF);
+    // console.log(TableSF);
+
+    // $('.content.kompresi .output textarea').val(HasilKompresi);
+
+    // download(HasilKompresi, 'dekripsi.txt', 'text/plain');
+  });
 });
+
+// menu dropdown
   function myFunction(x) {
     x.classList.toggle("change");
     $(".tabBlock").toggle('slow');
@@ -36,7 +171,6 @@ function text2Binary(string) {
   } 
   return output.join("");
 }
-   // console.log('text2binary='+text2Binary('abc'));
 
  //convert binary to whitespace
  function binarytowhitespace(a){
@@ -106,18 +240,6 @@ function text2Binary(string) {
       }
     }
   }
-}
-  
-// function for shannon fano compression
-// Compress text, returns a byte array
-//
-function compressText($text)
-{
-    //get the text as a byte array
-    $src_bin = textToArray($text);
-    
-  // return compressBin($src_bin);
-  // console.log('textToArray : '+src_bin)
 }
 
 //convert input text to a byte array
@@ -262,14 +384,14 @@ function getKeyByValue(object, value) {
 
 
 //Source
-var text = 'abc 		       		   	  		  	   		  		',
-frequency = frequency(text),
-sort = sortfreq(frequency),
-tableSF = tableSF(sort);
-console.log('text : '+text);
-console.log(sort);
-console.log(tableSF);
-encode = encode(text,tableSF);
-decode = decode(tableSF,encode);
-console.log(encode);
-console.log(decode);
+// var text = 'abc 		       		   	  		  	   		  		',
+// frequency = frequency(text),
+// sort = sortfreq(frequency(text)),
+// tableSF = tableSF(sort);
+// console.log('text : '+text);
+// console.log(sort);
+// console.log(tableSF);
+// encode = encode(text,tableSF);
+// decode = decode(tableSF,encode);
+// console.log(encode);
+// console.log(decode);

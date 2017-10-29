@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Shannon Fano</title>
@@ -7,6 +8,7 @@
 	<script type="text/javascript">
 
 		$(document).ready(function(){
+
 			  
 			$('.whitespace').click(function(){
 				var message = $('.message').val(),
@@ -84,7 +86,7 @@
 	</style>
 </head>
 
-<body>
+<body onload="checkFileAPI();">
 	<div id="page-wrap">
 		<div class="menu">
 			<div class="container" onclick="myFunction(this)">
@@ -106,45 +108,47 @@
 			<h3>Enkripsi Whitespace</h3>
 			<div class="input">
 				<h4>Masukkan Teks</h4>
-				<textarea rows="4" cols="50" class="form-control row-1" placeholder="Masukkan teks di sini"></textarea>
+				<textarea rows="4" cols="50" class="form-control row-1 text" placeholder="Masukkan teks di sini"></textarea>
 				<h4>Masukkan Pesan Rahasia</h4>
-				<textarea rows="4" cols="50" class="form-control" placeholder="Masukkan pesan rahasia di sini"></textarea>
+				<textarea rows="4" cols="50" class="form-control secret" placeholder="Masukkan pesan rahasia di sini"></textarea>
+				<button type="button" class="btn btn-default enkripsi">Enkripsi</button>
 			</div>
-			<button type="button" class="btn btn-default">Enkripsi</button>
+			
 			<div class="output">
 				<h4>Hasil Enkripsi</h4>
-				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil enkripsi akan muncul di sini"></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil enkripsi akan muncul di sini" readonly></textarea>
+				<a href="" id="SimpanEnkripsi"><button type="button" class="btn btn-default">Simpan File</button></a>
 			</div>
-			<button type="button" class="btn btn-default">Simpan File</button>
+			
 
 		</div>
 		<div class="content dekripsi">
 			<h3>Dekripsi Whitespace</h3>
 			<div class="input">
 				<p>Silahkan pilih file yang telah di enkripsi</p>
-				<button type="button" class="btn btn-default">Buka File</button>
+				<input type="file" onchange='readText(this)' class="btn btn-default">
 				<h5>Isi File</h5>
-				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file akan tampil di sini"></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file akan tampil di sini" readonly></textarea>
+				<button type="button" class="btn btn-default dekripsi">Dekripsi</button>
 			</div>
-			<button type="button" class="btn btn-default">Dekripsi</button>
 			<div class="output">
 				<h4>Hasil Dekripsi</h4>
-				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil dekripsi akan muncul di sini"></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil dekripsi akan muncul di sini" readonly></textarea>
+				<a href="" id="SimpanDekripsi"><button type="button" class="btn btn-default">Simpan File</button></a>
 			</div>
-			<button type="button" class="btn btn-default">Simpan File</button>
 		</div>
 		<div class="content kompresi">
 			<h3>Kompresi Shannon Fano</h3>
 			<div class="input">
 				<p>Silahkan pilih file yang akan dikompres</p>
-				<button type="button" class="btn btn-default">Buka File</button>
+				<input type="file" onchange='readText(this)' class="btn btn-default">
 				<h5>Isi File</h5>
-				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file akan tampil di sini"></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file akan tampil di sini" readonly></textarea>
+				<button type="button" class="btn btn-default">Kompres</button>
 			</div>
-			<button type="button" class="btn btn-default">Kompres</button>
 			<div class="output">
 				<h4>Hasil Kompresi</h4>
-				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file setelah melalui proses kompresi"></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file setelah melalui proses kompresi" readonly></textarea>
 			</div>
 			<button type="button" class="btn btn-default">Simpan File</button>
 		</div>
@@ -154,12 +158,12 @@
 				<p>Silahkan pilih file yang akan didekompres</p>
 				<button type="button" class="btn btn-default">Buka File</button>
 				<h5>Isi File</h5>
-				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file akan tampil di sini"></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file akan tampil di sini" readonly></textarea>
 			</div>
 			<button type="button" class="btn btn-default">Dekompres</button>
 			<div class="output">
 				<h4>Hasil Dekompresi</h4>
-				<textarea rows="4" cols="50" class="form-control unclickable" placeholder="Isi file setelah melalui proses dekompresi"></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file setelah melalui proses dekompresi" readonly></textarea>
 			</div>
 			<button type="button" class="btn btn-default">Simpan File</button>
 		</div>

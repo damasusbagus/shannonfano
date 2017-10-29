@@ -121,3 +121,6 @@ ul.menu li {
 	border: 1px solid #c40;
 	color: #c40;
 }
+button {
+	margin-top: 15px;
+}
