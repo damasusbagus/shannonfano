@@ -16,6 +16,32 @@ function DownloadDekripsi(text, name, type) {
 }
 // ---
 
+// save file kompresi
+function DownloadKompresi(text, name, type) {
+  var a = document.getElementById("SimpanKompresi");
+  var file = new Blob([text], {type: type});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+
+  // let byteChars = atob(text);
+  // let byteNumbers = new Array(byteChars.length);
+  // for (var i = 0; i < byteChars.length; i++) {
+  //   byteNumbers[i] = byteChars.charCodeAt(i);
+  // }
+  // let byteArray = new Uint8Array(byteNumbers);
+  // var data = new Blob([byteArray], {type: type});
+  // saveAs(data, name);
+}
+// ---
+
+function DownloadDekompresi(text, name, type) {
+  var a = document.getElementById("SimpanDekompresi");
+  var file = new Blob([text], {type: type});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+}
+// ---
+
 // open file
 var reader;  
 function checkFileAPI() {
@@ -66,6 +92,7 @@ function displayContents(txt) {
     // alert(txt);
     $('.content.dekripsi .input textarea').val(txt);
     $('.content.kompresi .input textarea').val(txt);
+    $('.content.dekompresi .input textarea').val(txt);
 }   
 // ---
 
@@ -106,8 +133,8 @@ $(document).ready(function(){
     proses1 = text2Binary(input);
     proses2 = binarytowhitespace(proses1);
     result = EnkripsiInput+proses2;
-    console.log(result);
     // ---
+    console.log(proses1);
 
     $('.content.enkripsi .output textarea').val(result);
 
@@ -139,21 +166,58 @@ $(document).ready(function(){
   // kompresi shannon fano
   $('.content.kompresi .input button').click(function() {
     KompresiInput = $('.content.kompresi .input textarea').val();
-    console.log(KompresiInput);
+    // console.log(KompresiInput);
 
     // Proses Kompresi
-    UrutkanFrekuensi = sortfreq(frequency(KompresiInput));
-    console.log(frequency(KompresiInput));
-    console.log(sortfreq(frequency(KompresiInput)));
-    // TableSF = tableSF(UrutkanFrekuensi);
-    // HasilKompresi = encode(KompresiInput,TableSF);
+    Frekuensi = object2array2d(Frequency(KompresiInput));
+    UrutkanFrekuensi = Frekuensi.sort(SortByFreq);
+    TableSF = tableSF(UrutkanFrekuensi);
+    // console.log(UrutkanFrekuensi);
     // console.log(TableSF);
 
-    // $('.content.kompresi .output textarea').val(HasilKompresi);
+    HasilKompresi = encode(KompresiInput,TableSF);
+    // console.log(HasilKompresi);
+    Dekompresi = decode(TableSF,HasilKompresi);
+    // console.log(Dekompresi);
 
-    // download(HasilKompresi, 'dekripsi.txt', 'text/plain');
+    BitToASCII = binarytotext(HasilKompresi);
+    // console.log(BitToASCII);
+    integer = Number(HasilKompresi);
+    console.log(integer);
+    // var binObj = new BinaryObject(HasilKompresi);
+
+    $('.content.kompresi .output textarea').val(HasilKompresi);
+
+// let byteChars = atob(HasilKompresi);
+// let byteNumbers = new Array(byteChars.length);
+// for (var i = 0; i < byteChars.length; i++) {
+//   byteNumbers[i] = byteChars.charCodeAt(i);
+// }
+// let byteArray = new Uint8Array(byteNumbers);
+// var data = new Blob([byteArray], {type: "application/octet-stream"});
+// saveAs(data, "myfile.abc");
+
+    DownloadKompresi(integer, 'kompresi.abc', 'application/octet-binary');
+  });
+
+  // dekompresi shannon fano
+  $('.content.dekompresi .input button').click(function() {
+    DekompresiInput = $('.content.dekompresi .input textarea').val();
+    // console.log(DekompresiInput);
+
+    // Proses Dekompresi
+    ASCIIToBit = text2Binary(DekompresiInput);
+    // console.log(ASCIIToBit);
+    HasilDecode = decode(TableSF,DekompresiInput);
+    HasilDecode2 = decode(TableSF,ASCIIToBit);
+    console.log(HasilDecode);
+    $('.content.dekompresi .output textarea').val(HasilDecode);
+
+    DownloadDekompresi(HasilDecode2, 'dekompresi.txt', 'text/plain');
   });
 });
+
+console.log(binarytotext('11'));
 
 // menu dropdown
   function myFunction(x) {
@@ -161,15 +225,37 @@ $(document).ready(function(){
     $(".tabBlock").toggle('slow');
   }
 
+function saveAs(blob, fileName) {
+    var url = window.URL.createObjectURL(blob);
+
+    var anchorElem = document.createElement("a");
+    anchorElem.style = "display: none";
+    anchorElem.href = url;
+    anchorElem.download = fileName;
+
+    document.body.appendChild(anchorElem);
+    anchorElem.click();
+
+    document.body.removeChild(anchorElem);
+
+    // On Edge, revokeObjectURL should be called only after
+    // a.click() has completed, atleast on EdgeHTML 15.15048
+    setTimeout(function() {
+        window.URL.revokeObjectURL(url);
+    }, 1000);
+}
+
 // convert string to binary
-function text2Binary(string) {
-  var length = string.length,
-  output = [];
-  for (var i = 0;i < length; i++) {
-    var bin = string[i].charCodeAt().toString(2);
-    output.push(Array(8-bin.length+1).join("0") + bin);
-  } 
-  return output.join("");
+spaceSeparatedOctets = 0;
+function text2Binary(str, spaceSeparatedOctets) {
+  function zeroPad(num) {
+        return "00000000".slice(String(num).length) + num;
+    }
+
+    return str.replace(/[\s\S]/g, function(str) {
+        str = zeroPad(str.charCodeAt().toString(2));
+        return !1 == spaceSeparatedOctets ? str : str + ""
+    });
 }
 
  //convert binary to whitespace
@@ -188,10 +274,21 @@ function text2Binary(string) {
 }
 
  //convert binary to text
- function binarytotext(binary) {
-  return binary.replace(/[01]{8}/g, function (v) {
-    return String.fromCharCode(parseInt(v, 2));
-  });
+ function binarytotext(str) {
+  // Removes the spaces from the binary string
+    str = str.replace(/\s+/g, '');
+    // Pretty (correct) print binary (add a space every 8 characters)
+    str = str.match(/.{1,8}/g).join(" ");
+
+    var newBinary = str.split(" ");
+    var binaryCode = [];
+
+    for (i = 0; i < newBinary.length; i++) {
+        binaryCode.push(String.fromCharCode(parseInt(newBinary[i], 2)));
+    }
+    
+    console.log(binaryCode);
+    return binaryCode.join("");
 }
 
  //convert whitespace to binary
@@ -251,7 +348,7 @@ function textToArray($text)
   }
 
 // get frecuency
-function getFrequency(string) {
+function Frequency(string) {
   var freq = {};
   for (var i=0; i<string.length;i++) {
     var character = string.charAt(i);
@@ -265,47 +362,21 @@ function getFrequency(string) {
 };
 
 // sort object from high frecuency
-function sortAssocObject(list) {
-  var sortable = [];
-  for (var key in list) {
-    sortable.push([key, list[key]]);
-  }
-
-  sortable.sort(function(a, b) {
-    return (a[1] > b[1] ? -1 : (a[1] < b[1] ? 1 : 0));
-  });
-
-  var orderedList = {};
-  for (var i = 0; i < sortable.length; i++) {
-    orderedList[sortable[i][0]] = sortable[i][1];
-  }
-
-  return orderedList;
+function SortByFreq(a,b) {
+  if (a[0] === b[0]) {
+          return 0;
+      }
+      else {
+          return (a[0] > b[0]) ? -1 : 1;
+      }
 }
 
-function frequency(str){
-  var freqs={};
-  for (var i in str){
-
-   if(freqs[str[i]]==undefined){
-
-    freqs[str[i]]=1;
+function object2array2d(freqs){
+  var letters = [];
+  for (var ch in freqs){
+    letters.push([freqs[ch],ch]);
   }
-  else {
-    freqs[str[i]]=freqs[str[i]]+1;
-  }
-}
-
-return freqs;
-}
-
-function sortfreq(freqs){
-  var tuples=[];
-  for( var let in freqs){
-   tuples.push([freqs[let],let]);
- }
- tuples.sort();
- return tuples.reverse();
+  return letters;
 }
 
 //Tabel SF
@@ -381,17 +452,3 @@ function tableSF(tuples)
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
-
-
-//Source
-// var text = 'abc 		       		   	  		  	   		  		',
-// frequency = frequency(text),
-// sort = sortfreq(frequency(text)),
-// tableSF = tableSF(sort);
-// console.log('text : '+text);
-// console.log(sort);
-// console.log(tableSF);
-// encode = encode(text,tableSF);
-// decode = decode(tableSF,encode);
-// console.log(encode);
-// console.log(decode);

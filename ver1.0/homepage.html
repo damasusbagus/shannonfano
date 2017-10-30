@@ -150,22 +150,22 @@
 				<h4>Hasil Kompresi</h4>
 				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file setelah melalui proses kompresi" readonly></textarea>
 			</div>
-			<button type="button" class="btn btn-default">Simpan File</button>
+			<a href="" id="SimpanKompresi"><button type="button" class="btn btn-default">Simpan File</button></a>
 		</div>
 		<div class="content dekompresi">
 			<h3>Dekompresi Shannon Fano</h3>
 			<div class="input">
 				<p>Silahkan pilih file yang akan didekompres</p>
-				<button type="button" class="btn btn-default">Buka File</button>
+				<input type="file" onchange='readText(this)' class="btn btn-default">
 				<h5>Isi File</h5>
 				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file akan tampil di sini" readonly></textarea>
+				<button type="button" class="btn btn-default">Dekompres</button>
 			</div>
-			<button type="button" class="btn btn-default">Dekompres</button>
 			<div class="output">
 				<h4>Hasil Dekompresi</h4>
 				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file setelah melalui proses dekompresi" readonly></textarea>
+				<a href="" id="SimpanDekompresi"><button type="button" class="btn btn-default">Simpan File</button></a>
 			</div>
-			<button type="button" class="btn btn-default">Simpan File</button>
 		</div>
 	</div>
 
