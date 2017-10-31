@@ -182,8 +182,13 @@ $(document).ready(function(){
 
     BitToASCII = binarytotext(HasilKompresi);
     // console.log(BitToASCII);
-    integer = Number(HasilKompresi);
-    console.log(integer);
+    // integer = Number(HasilKompresi);
+    // console.log(integer);
+    // test = text2Binary(KompresiInput);
+    // console.log(test);
+    // console.log(typeof BitToASCII);
+    // binary = new Uint8Array(HasilKompresi);
+    // console.log(binary);
     // var binObj = new BinaryObject(HasilKompresi);
 
     $('.content.kompresi .output textarea').val(HasilKompresi);
@@ -197,7 +202,7 @@ $(document).ready(function(){
 // var data = new Blob([byteArray], {type: "application/octet-stream"});
 // saveAs(data, "myfile.abc");
 
-    DownloadKompresi(integer, 'kompresi.abc', 'application/octet-binary');
+    DownloadKompresi(BitToASCII, 'kompresi.abc', 'application/octet-binary');
   });
 
   // dekompresi shannon fano
@@ -208,10 +213,10 @@ $(document).ready(function(){
     // Proses Dekompresi
     ASCIIToBit = text2Binary(DekompresiInput);
     // console.log(ASCIIToBit);
-    HasilDecode = decode(TableSF,DekompresiInput);
+    // HasilDecode = decode(TableSF,DekompresiInput);
     HasilDecode2 = decode(TableSF,ASCIIToBit);
     console.log(HasilDecode);
-    $('.content.dekompresi .output textarea').val(HasilDecode);
+    $('.content.dekompresi .output textarea').val(HasilDecode2);
 
     DownloadDekompresi(HasilDecode2, 'dekompresi.txt', 'text/plain');
   });
