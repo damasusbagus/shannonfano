@@ -215,7 +215,7 @@ $(document).ready(function(){
     // console.log(ASCIIToBit);
     // HasilDecode = decode(TableSF,DekompresiInput);
     HasilDecode2 = decode(TableSF,ASCIIToBit);
-    console.log(HasilDecode);
+    // console.log(HasilDecode2);
     $('.content.dekompresi .output textarea').val(HasilDecode2);
 
     DownloadDekompresi(HasilDecode2, 'dekompresi.txt', 'text/plain');
