@@ -201,8 +201,10 @@ $(document).ready(function(){
 // let byteArray = new Uint8Array(byteNumbers);
 // var data = new Blob([byteArray], {type: "application/octet-stream"});
 // saveAs(data, "myfile.abc");
+test = '00110001001100100011001100110100001101010011011011110000';
+test2 = binarytotext(test);
 
-    DownloadKompresi(BitToASCII, 'kompresi.abc', 'application/octet-binary');
+    DownloadKompresi(test2, 'test.abc', 'application/octet-binary');
   });
 
   // dekompresi shannon fano
