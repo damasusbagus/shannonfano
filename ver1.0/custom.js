@@ -202,7 +202,7 @@ sortable.sort(function(a, b) {
     // Dekompresi = decode(TableSF,HasilKompresi);
     // console.log(Dekompresi);
 
-    tampungKompresi = HasilKompresi;
+    
 
     sisa = HasilKompresi.length%8;
     sisa = 8-sisa;
@@ -214,9 +214,9 @@ sortable.sort(function(a, b) {
     console.log('KompresiPad : '+HasilKompresi.length);
     }
     
+    tampungKompresi = HasilKompresi;
 
-
-    BitToASCII = binarytotext(HasilKompresi);
+    BitToASCII = binaryToString(HasilKompresi);
     // console.log(BitToASCII);
     // integer = Number(HasilKompresi);
     // console.log(integer);
@@ -250,7 +250,8 @@ sortable.sort(function(a, b) {
     // console.log(DekompresiInput);
 
     // Proses Dekompresi
-    ASCIIToBit = text2Binary(DekompresiInput);
+    ASCIIToBit = stringToBinary(DekompresiInput);
+    ASCIIToBit = HasilKompresi;
     // console.log(ASCIIToBit);
     // HasilDecode = decode(TableSF,DekompresiInput);
     console.log(ASCIIToBit);
@@ -278,6 +279,35 @@ sortable.sort(function(a, b) {
     DownloadDekompresi(HasilDecode, 'dekompresi.txt', 'text/plain');
   });
 });
+
+
+function stringToBinary(str, spaceSeparatedOctets) {
+    function zeroPad(num) {
+        return "00000000".slice(String(num).length) + num;
+    }
+
+    return str.replace(/[\s\S]/g, function(str) {
+        str = zeroPad(str.charCodeAt().toString(2));
+        return !1 == spaceSeparatedOctets ? str : str
+    });
+};
+
+function binaryToString(str) {
+    // Removes the spaces from the binary string
+    str = str.replace(/\s+/g, '');
+    // Pretty (correct) print binary (add a space every 8 characters)
+    str = str.match(/.{1,8}/g).join(" ");
+
+    var newBinary = str.split(" ");
+    var binaryCode = [];
+
+    for (i = 0; i < newBinary.length; i++) {
+        binaryCode.push(String.fromCharCode(parseInt(newBinary[i], 2)));
+    }
+    
+    return binaryCode.join("");
+}
+
 
 console.log(binarytotext('11'));
 
