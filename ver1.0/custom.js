@@ -282,7 +282,7 @@ sortable.sort(function(a, b) {
 
     // test = AddBit(HasilKompresi);
     BitToASCII = header+BitToASCII
-    DownloadKompresi(BitToASCII, 'kompresi.abc', 'application/octet-binary');
+    DownloadKompresi(BitToASCII, 'kompresi.sf', 'application/octet-binary');
   });
 
   // dekompresi shannon fano
@@ -322,10 +322,7 @@ sortable.sort(function(a, b) {
     // HasilDecode = decode(TableSF,DekompresiInput);
     console.log(ASCIIToBit);
     console.log(sisa);
-    if(sisa!=0) {
-      ASCIIToBit = DeleteZero(ASCIIToBit,sisa);
-    }
-    console.log('ascii : '+ASCIIToBit.length);
+    
     
     tampungDekompresi = ASCIIToBit;
 
@@ -358,6 +355,10 @@ sortable.sort(function(a, b) {
 //     }
     ASCIIToBit = stringToBinary(ASCIIToBit);
     console.log('jumlah karakter : '+ASCIIToBit.length);
+    if(sisa!=0) {
+      ASCIIToBit = DeleteZero(ASCIIToBit,sisa);
+    }
+    console.log('ascii : '+ASCIIToBit.length);
 
     HasilDecode = decode2(headerSF,ASCIIToBit);
     console.log(HasilDecode);
