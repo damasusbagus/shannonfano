@@ -180,9 +180,14 @@ $(document).ready(function(){
     Frekuensi = object2array2d(Frequency(KompresiInput));
     // console.log(KompresiInput);
     UrutkanFrekuensi = Frekuensi.sort(SortByFreq)
+    // console.log('=====');
     // console.log(UrutkanFrekuensi);
+    // document.getElementById('test').innerHTML = UrutkanFrekuensi;
+    console.log('=====');
     TableSF = tableSF(UrutkanFrekuensi);
+    console.log('=====');
     console.log(UrutkanFrekuensi);
+
     var sortable = [];
 for (var vehicle in TableSF) {
     sortable.push([vehicle, TableSF[vehicle]]);
@@ -195,7 +200,17 @@ sortable.sort(function(a, b) {
     console.log(sortable);
     console.log(TableSF);
     x = sortable;
+    document.getElementById('test').innerHTML = sortable;
     // console.log(x);
+    console.log('=====');
+    TableSFtoString = sortable.join();
+    console.log(TableSFtoString);  
+        console.log('=====');
+    lengthHeader = TableSFtoString.length;
+    console.log('length : '+lengthHeader);
+    lengthHeader = lengthHeader+'*';
+    console.log('length+simbol : '+lengthHeader);
+  
 
     HasilKompresi = encode(KompresiInput,TableSF);
     console.log('Jumlah karakter : '+HasilKompresi.length);
@@ -214,6 +229,9 @@ sortable.sort(function(a, b) {
     console.log('KompresiPad : '+HasilKompresi.length);
     }
     
+    header = lengthHeader+sortable+sisa;
+    console.log(header);
+
     tampungKompresi = HasilKompresi;
 
     BitToASCII = binaryToString(HasilKompresi);
@@ -226,6 +244,12 @@ sortable.sort(function(a, b) {
     // binary = new Uint8Array(HasilKompresi);
     // console.log(binary);
     // var binObj = new BinaryObject(HasilKompresi);
+    
+    // test cari simbol header
+    HasilKompresi = header+HasilKompresi;
+    test = '123**123';
+    testoutput = test.indexOf('*');
+    console.log('testoutput : '+testoutput);
 
     $('.content.kompresi .output textarea').val(HasilKompresi);
 
@@ -241,6 +265,7 @@ sortable.sort(function(a, b) {
 // test2 = binarytotext(test);
 
     // test = AddBit(HasilKompresi);
+    BitToASCII = header+BitToASCII
     DownloadKompresi(BitToASCII, 'kompresi.abc', 'application/octet-binary');
   });
 
@@ -252,6 +277,15 @@ sortable.sort(function(a, b) {
     // Proses Dekompresi
     ASCIIToBit = stringToBinary(DekompresiInput);
     ASCIIToBit = HasilKompresi;
+
+    headerSymbol = ASCIIToBit.indexOf('*');
+    console.log('headerSymbol : '+headerSymbol);
+    headerLenght = ASCIIToBit.substring(0,headerSymbol);
+    console.log('headerLenght : '+headerLenght);
+
+    TableSF = ASCIIToBit(headerSymbol+1,)
+    pad = 
+
     // console.log(ASCIIToBit);
     // HasilDecode = decode(TableSF,DekompresiInput);
     console.log(ASCIIToBit);
@@ -649,3 +683,7 @@ function stringMatch (tableSF,substring) {
     }
   }
 }
+
+  // function header (tuples) {
+
+  // }
