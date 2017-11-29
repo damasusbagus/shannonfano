@@ -98,43 +98,43 @@
 			<h3>Menu</h3>
 			<div class="tabBlock">
 				<ul class="menu-list">
-					<li class="enkripsi">> Enkripsi</li>
-					<li class="dekripsi">> Dekripsi</li>
+					<li class="enkripsi">> Steganografi</li>
+					<li class="dekripsi">> Pemulihan</li>
 					<li class="kompresi">> Kompresi</li>
 					<li class="dekompresi">> Dekompresi</li>
 				</ul>
 			</div>
 		</div>
 		<div class="content enkripsi">
-			<h3>Enkripsi Whitespace</h3>
+			<h3>Steganografi Whitespace</h3>
 			<div class="input">
 				<h4>Masukkan Teks</h4>
 				<textarea rows="4" cols="50" class="form-control row-1 text" placeholder="Masukkan teks di sini"></textarea>
 				<h4>Masukkan Pesan Rahasia</h4>
 				<textarea rows="4" cols="50" class="form-control secret" placeholder="Masukkan pesan rahasia di sini"></textarea>
-				<button type="button" class="btn btn-default enkripsi">Enkripsi</button>
+				<button type="button" class="btn btn-default enkripsi">Steganografi</button>
 			</div>
 			
 			<div class="output">
-				<h4>Hasil Enkripsi</h4>
-				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil enkripsi akan muncul di sini" readonly></textarea>
+				<h4>Hasil steganografi</h4>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil steganografi akan muncul di sini" readonly></textarea>
 				<a href="" id="SimpanEnkripsi"><button type="button" class="btn btn-default">Simpan File</button></a>
 			</div>
 			
 
 		</div>
 		<div class="content dekripsi">
-			<h3>Dekripsi Whitespace</h3>
+			<h3>pemulihan Whitespace</h3>
 			<div class="input">
-				<p>Silahkan pilih file yang telah di enkripsi</p>
+				<p>Silahkan pilih file yang telah di steganografi</p>
 				<input type="file" onchange='readText(this)' class="btn btn-default">
 				<h5>Isi File</h5>
 				<textarea rows="4" cols="50" class="form-control" placeholder="Isi file akan tampil di sini" readonly></textarea>
-				<button type="button" class="btn btn-default dekripsi">Dekripsi</button>
+				<button type="button" class="btn btn-default dekripsi">pemulihan</button>
 			</div>
 			<div class="output">
 				<h4>Hasil Dekripsi</h4>
-				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil dekripsi akan muncul di sini" readonly></textarea>
+				<textarea rows="4" cols="50" class="form-control" placeholder="Hasil pemulihan akan muncul di sini" readonly></textarea>
 				<a href="" id="SimpanDekripsi"><button type="button" class="btn btn-default">Simpan File</button></a>
 			</div>
 		</div>

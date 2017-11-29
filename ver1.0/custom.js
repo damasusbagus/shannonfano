@@ -59,7 +59,7 @@ function readText(filePath) {
   if(filePath.files && filePath.files[0]) {           
     reader.onload = function (e) {
       output = e.target.result;
-      console.log(output);
+      // console.log(output);
           displayContents(output);
       };//end onload()
       reader.readAsText(filePath.files[0]);
@@ -71,7 +71,7 @@ function readText(filePath) {
           output = file.ReadAll(); //text contents of file
           file.Close(); //close file "input stream"
           displayContents(output);
-          console.log(output);
+          // console.log(output);
         } catch (e) {
           if (e.number == -2146827859) {
             alert('Unable to access local files due to browser security settings. ' + 
@@ -148,6 +148,7 @@ $(document).ready(function(){
   $('.content.dekripsi .input button').click(function() {
     var DekripsiInput = $('.content.dekripsi .input textarea').val();
     // console.log(DekripsiInput);
+    DekripsiInput = output;
 
     SymbolToWhitespace = binarytowhitespace(text2Binary(symbol));
     // console.log(SymbolToWhitespace);
@@ -158,6 +159,12 @@ $(document).ready(function(){
     // mengambil karakter setelah simbol untuk pesan rahasia
     PesanRahasia = DekripsiInput.substr(DeteksiSimbol);
     console.log(PesanRahasia);
+    alert(PesanRahasia.length);
+    // Proses Kompresi
+    Frekuensi = object2array2d(Frequency(DekripsiInput));
+    // console.log(KompresiInput);
+    UrutkanFrekuensi = Frekuensi.sort(SortByFreq)
+    alert(UrutkanFrekuensi.length);
 
     // mengambil karakter dari 0 sampai sebelum pesan rahasia
     teks = DekripsiInput.slice(0, DeteksiSimbol-8);
@@ -176,6 +183,7 @@ $(document).ready(function(){
   $('.content.kompresi .input button').click(function() {
     KompresiInput = $('.content.kompresi .input textarea').val();
     // console.log(KompresiInput);
+    KompresiInput = output;
 
     // Proses Kompresi
     Frekuensi = object2array2d(Frequency(KompresiInput));
@@ -200,7 +208,6 @@ sortable.sort(function(a, b) {
     
     console.log(sortable);
     console.log(TableSF);
-    x = sortable;
     // document.getElementById('test').innerHTML = sortable;
     // console.log(x);
     // console.log('=====');
@@ -225,14 +232,25 @@ sortable.sort(function(a, b) {
     // alert(test2);
 
     sisa = HasilKompresi.length%8;
-    alert(sisa);
+    // alert(sisa);
     sisa = 8-sisa;
-    alert(sisa);
+    // alert(sisa);
     console.log(sisa);
-    $('.content.kompresi .output textarea').val(HasilKompresi);
+    // $('.content.kompresi .output textarea').val(HasilKompresi);
 
     header = sortable;
-    console.log('header'+header);
+    console.log(header);
+    array = header;
+    for(x in array) {
+        if(array[x] instanceof Array) {
+            array[x] = array[x].join("~");
+        }
+    }
+    var string = array.join("~");
+    // alert(string);
+    // header = header.join('~');
+    console.log('header2 : '+string);
+    header = string;
     // alert(sisa);
     if (sisa !=8) {
       HasilKompresi = AddZero(HasilKompresi,sisa);
@@ -241,7 +259,7 @@ sortable.sort(function(a, b) {
     }
     else {
       header = header+'0'+'*';
-      alert('sisa 0')
+      // alert('sisa 0')
     }
     
     
@@ -292,20 +310,21 @@ sortable.sort(function(a, b) {
     alert(output);
 
     // Proses Dekompresi
-    ASCIIToBit = stringToBinary(DekompresiInput);
+    // ASCIIToBit = stringToBinary(DekompresiInput);
     ASCIIToBit = output;
 
     // pemisah header dengan hasil kompresi
     headerSymbol = ASCIIToBit.indexOf('*');
-    console.log('==========');
+    console.log('header symbol : '+headerSymbol);
     header = ASCIIToBit.substring(0,headerSymbol);
-    console.log('header : '+header);
+    // console.log('header : '+header);
     headerSF = header.substring(0,headerSymbol-1);
+    console.log('headerSF : '+headerSF);
     content = ASCIIToBit.substr(headerSymbol+1,ASCIIToBit.length);
     console.log('content : '+content);
 
     sisa = ASCIIToBit.charAt(headerSymbol-1);
-    alert(sisa);
+    console.log('sisa : '+sisa);
     ASCIIToBit = content;
 
     // headerSymbol = ASCIIToBit.indexOf('*');
@@ -320,8 +339,8 @@ sortable.sort(function(a, b) {
 
     // console.log(ASCIIToBit);
     // HasilDecode = decode(TableSF,DekompresiInput);
-    console.log(ASCIIToBit);
-    console.log(sisa);
+    // console.log(ASCIIToBit);
+    // console.log(sisa);
     
     
     tampungDekompresi = ASCIIToBit;
@@ -334,7 +353,11 @@ sortable.sort(function(a, b) {
     // }
 
     headerSF = StringToArray2D(headerSF);
-    console.log(headerSF);
+        console.log(headerSF);
+
+    o = headerSF.reduce(function(prev,curr){prev[curr[0]]=curr[1];return prev;},{})
+    console.log(o);
+    headerSF = o;
 //         var sortable = [];
 // for (var vehicle in TableSF) {
 //     sortable.push([vehicle, TableSF[vehicle]]);
@@ -359,10 +382,13 @@ sortable.sort(function(a, b) {
       ASCIIToBit = DeleteZero(ASCIIToBit,sisa);
     }
     console.log('ascii : '+ASCIIToBit.length);
+    console.log('binary : '+ASCIIToBit);
 
-    HasilDecode = decode2(headerSF,ASCIIToBit);
+
+
+    HasilDecode = decode(headerSF,ASCIIToBit);
     console.log(HasilDecode);
-    console.log(ASCIIToBit);
+    // console.log(ASCIIToBit);
     // HasilDecode3 = decode2(x,ASCIIToBit);
     $('.content.dekompresi .output textarea').val(HasilDecode);
 
@@ -727,12 +753,14 @@ function createObject(array) {
 }
 
 function decode2(tableSF,encoded) {
-      var start = 0,
-   output = '';
+    var start = 0,
+    output = '';
 
-   for(var i = 1; i <= encoded.length; i++) {
-     substring = encoded.substring(start,i);
-     var test = stringMatch(tableSF, substring)
+    for(var i = 1; i <= 50; i++) {
+     substring = encoded.substr(start,i);
+     substring = substring.toString();
+     console.log('substring : '+substring)
+     var test = stringMatch(tableSF,substring)
      if (test != undefined) {
       start = i;
       output += test;
@@ -745,7 +773,7 @@ function decode2(tableSF,encoded) {
 function stringMatch (tableSF,substring) {
   for (var i = 0; i < tableSF.length; i++) {
     if (tableSF[i][1] == substring) {
-      // console.log(tableSF[i][1]);
+      console.log(tableSF[i][1]);
       return tableSF[i][0];
     }
   }
@@ -758,7 +786,7 @@ function stringMatch (tableSF,substring) {
   function StringToArray2D (a) {
     var result = [];
 
-    a = a.split(','); 
+    a = a.split('~'); 
 
     while(a[0]) {
       result.push(a.splice(0,2));
@@ -768,19 +796,23 @@ function stringMatch (tableSF,substring) {
   }
 
   // testing
-  test = '123456781234';
-  console.log(test);
-  length = test.length;
-    console.log(length);
+//   test = '123456781234';
+//   console.log(test);
+//   length = test.length;
+//     console.log(length);
 
-  modulus = test.length%8;
-    console.log(modulus);
-    sisa = 8-modulus;
-      console.log(sisa);
+//   modulus = test.length%8;
+//     console.log(modulus);
+//     sisa = 8-modulus;
+//       console.log(sisa);
 
-test2 = AddZero(test,sisa);
-  console.log(test2);
+// test2 = AddZero(test,sisa);
+//   console.log(test2);
 
-test3 = DeleteZero (test2,sisa);
-  console.log(test3);
+// test3 = DeleteZero (test2,sisa);
+//   console.log(test3);
 
+x = [[1,2],[3,4],[5,6]];
+o = x.reduce(function(prev,curr){prev[curr[0]]=curr[1];return prev;},{})
+console.log(x);
+console.log(o);
