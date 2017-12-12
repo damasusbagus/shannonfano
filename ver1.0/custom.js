@@ -123,6 +123,10 @@ $(document).ready(function(){
 
   // Enkripsi whitespace
   $('.content.enkripsi .input button').click(function() {
+    var a = performance.now();
+console.log('do something...');
+
+
     EnkripsiInput = $('textarea.text').val();
     SecretInput = $('textarea.secret').val();
 
@@ -137,6 +141,8 @@ $(document).ready(function(){
     $('.content.enkripsi .output textarea').val(result);
 
     DownloadEnkripsi(result, 'enkripsi.txt', 'text/plain');
+    var b = performance.now();
+    console.log('It took ' + (b - a) + ' ms.');
   });
   // ---
 
