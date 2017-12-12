@@ -59,7 +59,6 @@ function readText(filePath) {
   if(filePath.files && filePath.files[0]) {           
     reader.onload = function (e) {
       output = e.target.result;
-      // console.log(output);
           displayContents(output);
       };//end onload()
       reader.readAsText(filePath.files[0]);
@@ -71,7 +70,6 @@ function readText(filePath) {
           output = file.ReadAll(); //text contents of file
           file.Close(); //close file "input stream"
           displayContents(output);
-          // console.log(output);
         } catch (e) {
           if (e.number == -2146827859) {
             alert('Unable to access local files due to browser security settings. ' + 
@@ -132,11 +130,9 @@ $(document).ready(function(){
     input = symbol+SecretInput;
 
     proses1 = text2Binary(input);
-    console.log('jumlah bit string : '+proses1.length);
     proses2 = binarytowhitespace(proses1);
     result = EnkripsiInput+proses2;
     // ---
-    console.log(proses1);
 
     $('.content.enkripsi .output textarea').val(result);
 
@@ -147,31 +143,23 @@ $(document).ready(function(){
   // dekripsi whitespace
   $('.content.dekripsi .input button').click(function() {
     var DekripsiInput = $('.content.dekripsi .input textarea').val();
-    // console.log(DekripsiInput);
     DekripsiInput = output;
 
     SymbolToWhitespace = binarytowhitespace(text2Binary(symbol));
-    // console.log(SymbolToWhitespace);
-    // console.log(text2Binary(symbol));
     DeteksiSimbol = detect(DekripsiInput,SymbolToWhitespace);
-    // console.log(DeteksiSimbol);
 
     // mengambil karakter setelah simbol untuk pesan rahasia
     PesanRahasia = DekripsiInput.substr(DeteksiSimbol);
-    console.log(PesanRahasia);
-    alert(PesanRahasia.length);
+
     // Proses Kompresi
     Frekuensi = object2array2d(Frequency(DekripsiInput));
-    // console.log(KompresiInput);
+
     UrutkanFrekuensi = Frekuensi.sort(SortByFreq)
-    alert(UrutkanFrekuensi.length);
 
     // mengambil karakter dari 0 sampai sebelum pesan rahasia
     teks = DekripsiInput.slice(0, DeteksiSimbol-8);
-    console.log(teks);
 
     DekripsiPesanRahasia = binarytotext(whitespacetobinary(PesanRahasia));
-    console.log(whitespacetobinary(PesanRahasia));
     hasil = teks+DekripsiPesanRahasia
 
     $('.content.dekripsi .output textarea').val(hasil);  
@@ -182,64 +170,31 @@ $(document).ready(function(){
   // kompresi shannon fano
   $('.content.kompresi .input button').click(function() {
     KompresiInput = $('.content.kompresi .input textarea').val();
-    // console.log(KompresiInput);
     KompresiInput = output;
 
     // Proses Kompresi
     Frekuensi = object2array2d(Frequency(KompresiInput));
-    // console.log(KompresiInput);
     UrutkanFrekuensi = Frekuensi.sort(SortByFreq)
-    // console.log('=====');
-    // console.log(UrutkanFrekuensi);
-    // document.getElementById('test').innerHTML = UrutkanFrekuensi;
-    console.log('=====');
     TableSF = tableSF(UrutkanFrekuensi);
-    console.log('=====');
-    console.log(UrutkanFrekuensi);
 
     var sortable = [];
-for (var vehicle in TableSF) {
-    sortable.push([vehicle, TableSF[vehicle]]);
-}
+    for (var vehicle in TableSF) {
+      sortable.push([vehicle, TableSF[vehicle]]);
+    }
 
-sortable.sort(function(a, b) {
-    return b[1] - a[1];
-  });
+    sortable.sort(function(a, b) {
+      return b[1] - a[1];
+    });
     
-    console.log(sortable);
-    console.log(TableSF);
-    // document.getElementById('test').innerHTML = sortable;
-    // console.log(x);
-    // console.log('=====');
-    // TableSFtoString = sortable.join();
-    // console.log(TableSFtoString);  
-    //     console.log('=====');
-    // lengthHeader = TableSFtoString.length;
-    // console.log('length : '+lengthHeader);
-    // lengthHeader = lengthHeader+'*';
-    // console.log('length+simbol : '+lengthHeader);
   
 
     HasilKompresi = encode(KompresiInput,TableSF);
-    console.log('Jumlah karakter : '+HasilKompresi.length);
-    // Dekompresi = decode(TableSF,HasilKompresi);
-    // console.log(Dekompresi);
 
-    
-    //test modulus
-    // test = '';
-    // test2 = test.length%8;
-    // alert(test2);
 
     sisa = HasilKompresi.length%8;
-    // alert(sisa);
     sisa = 8-sisa;
-    // alert(sisa);
-    console.log(sisa);
-    // $('.content.kompresi .output textarea').val(HasilKompresi);
 
     header = sortable;
-    console.log(header);
     array = header;
     for(x in array) {
         if(array[x] instanceof Array) {
@@ -247,56 +202,21 @@ sortable.sort(function(a, b) {
         }
     }
     var string = array.join("~");
-    // alert(string);
-    // header = header.join('~');
-    console.log('header2 : '+string);
     header = string;
-    // alert(sisa);
     if (sisa !=8) {
       HasilKompresi = AddZero(HasilKompresi,sisa);
-    console.log('KompresiPad : '+HasilKompresi.length);
     header = header+sisa+'*';
     }
     else {
       header = header+'0'+'*';
-      // alert('sisa 0')
     }
     
-    
-
-    // tampungKompresi = HasilKompresi;
-
-    BitToASCII = binaryToString(HasilKompresi);
-    // console.log(BitToASCII);
-    // integer = Number(HasilKompresi);
-    // console.log(integer);
-    // test = text2Binary(KompresiInput);
-    // console.log(test);
-    // console.log(typeof BitToASCII);
-    // binary = new Uint8Array(HasilKompresi);
-    // console.log(binary);
-    // var binObj = new BinaryObject(HasilKompresi);
-    
-    // test cari simbol header
-    test = '123**123';
-    testoutput = test.indexOf('*');
-    console.log('testoutput : '+testoutput);
+    BitToASCII = binaryToString(HasilKompresi); 
 
     HasilKompresi = header+HasilKompresi;
-    console.log(HasilKompresi);
 
     $('.content.kompresi .output textarea').val(HasilKompresi);
 
-// let byteChars = atob(HasilKompresi);
-// let byteNumbers = new Array(byteChars.length);
-// for (var i = 0; i < byteChars.length; i++) {
-//   byteNumbers[i] = byteChars.charCodeAt(i);
-// }
-// let byteArray = new Uint8Array(byteNumbers);
-// var data = new Blob([byteArray], {type: "application/octet-stream"});
-// saveAs(data, "myfile.abc");
-// test = '00110001001100100011001100110100001101010011011011110000';
-// test2 = binarytotext(test);
 
     // test = AddBit(HasilKompresi);
     BitToASCII = header+BitToASCII
@@ -306,90 +226,32 @@ sortable.sort(function(a, b) {
   // dekompresi shannon fano
   $('.content.dekompresi .input button').click(function() {
     DekompresiInput = $('.content.dekompresi .input textarea').val();
-    // console.log(DekompresiInput);
-    alert(output);
 
     // Proses Dekompresi
-    // ASCIIToBit = stringToBinary(DekompresiInput);
     ASCIIToBit = output;
 
     // pemisah header dengan hasil kompresi
     headerSymbol = ASCIIToBit.indexOf('*');
-    console.log('header symbol : '+headerSymbol);
     header = ASCIIToBit.substring(0,headerSymbol);
-    // console.log('header : '+header);
     headerSF = header.substring(0,headerSymbol-1);
-    console.log('headerSF : '+headerSF);
     content = ASCIIToBit.substr(headerSymbol+1,ASCIIToBit.length);
-    console.log('content : '+content);
 
     sisa = ASCIIToBit.charAt(headerSymbol-1);
-    console.log('sisa : '+sisa);
     ASCIIToBit = content;
 
-    // headerSymbol = ASCIIToBit.indexOf('*');
-    // console.log('headerSymbol : '+headerSymbol);
-    // headerLenght = ASCIIToBit.substring(0,headerSymbol);
-    // console.log('headerLenght : '+headerLenght);
-
-    // HeaderTableSF = ASCIIToBit.substring(4,headerLenght);
-    // console.log('HeaderTableSF : '+HeaderTableSF);
-
-
-
-    // console.log(ASCIIToBit);
-    // HasilDecode = decode(TableSF,DekompresiInput);
-    // console.log(ASCIIToBit);
-    // console.log(sisa);
-    
-    
-    tampungDekompresi = ASCIIToBit;
-
-    // if (tampungDekompresi == tampungKompresi) {
-    //   alert('sukses');
-    // }
-    // else {
-    //   alert('gagal');
-    // }
-
     headerSF = StringToArray2D(headerSF);
-        console.log(headerSF);
 
     o = headerSF.reduce(function(prev,curr){prev[curr[0]]=curr[1];return prev;},{})
-    console.log(o);
     headerSF = o;
-//         var sortable = [];
-// for (var vehicle in TableSF) {
-//     sortable.push([vehicle, TableSF[vehicle]]);
-// }
 
-// sortable.sort(function(a, b) {
-//     return b[1] - a[1];
-//   });
-
-    
-//     console.log(sortable);
-
-//     if (headerSF == sortable) {
-//       alert('sukses table SF')
-//     }
-//     else {
-//       alert('gagal table sf')
-//     }
     ASCIIToBit = stringToBinary(ASCIIToBit);
-    console.log('jumlah karakter : '+ASCIIToBit.length);
     if(sisa!=0) {
       ASCIIToBit = DeleteZero(ASCIIToBit,sisa);
     }
-    console.log('ascii : '+ASCIIToBit.length);
-    console.log('binary : '+ASCIIToBit);
-
 
 
     HasilDecode = decode(headerSF,ASCIIToBit);
-    console.log(HasilDecode);
-    // console.log(ASCIIToBit);
-    // HasilDecode3 = decode2(x,ASCIIToBit);
+
     $('.content.dekompresi .output textarea').val(HasilDecode);
 
     DownloadDekompresi(HasilDecode, 'dekompresi.txt', 'text/plain');
@@ -425,7 +287,6 @@ function binaryToString(str) {
 }
 
 
-console.log(binarytotext('11'));
 
 // menu dropdown
   function myFunction(x) {
@@ -446,8 +307,6 @@ function saveAs(blob, fileName) {
 
     document.body.removeChild(anchorElem);
 
-    // On Edge, revokeObjectURL should be called only after
-    // a.click() has completed, atleast on EdgeHTML 15.15048
     setTimeout(function() {
         window.URL.revokeObjectURL(url);
     }, 1000);
@@ -461,9 +320,7 @@ function AddZero (HasilKompresi,sisa) {
 }
 
 function DeleteZero (HasilKompresi,sisa) {
-  console.log(HasilKompresi.length);
   Hasil = HasilKompresi.substr(0, HasilKompresi.length - sisa);
-  console.log(Hasil.length);
   return Hasil;
 }
 
@@ -484,7 +341,6 @@ function text2Binary (input) {
 // add bit
 function AddBit(binary) {
   length = binary.length;
-  console.log(length);
 }
 
  //convert binary to whitespace
@@ -505,7 +361,6 @@ function AddBit(binary) {
  //convert whitespace to binary
  function whitespacetobinary(a){
   var data = a.split('');
-  console.log(data);
   for (var i = 0; i < a.length; i++) {
     if(data[i] == '\n'){
       data[i] = '0';
@@ -520,12 +375,9 @@ function AddBit(binary) {
 
  //convert binary to text
  function binarytotext(str) {
-  // console.log(str.length);
   // Removes the spaces from the binary string
     str = str.replace(/\s+/g, '');
-    // Pretty (correct) print binary (add a space every 8 characters)
     str = str.match(/.{1,8}/g).join(" ");
-    console.log(str);
 
     var newBinary = str.split(" ");
     var binaryCode = [];
@@ -534,16 +386,7 @@ function AddBit(binary) {
         binaryCode.push(String.fromCharCode(parseInt(newBinary[i], 2)));
     }
     
-    console.log(binaryCode);
     return binaryCode.join("");
-
-
-  // var binString = '';
-
-  // str.split(' ').map(function(bin) {
-  //     binString += String.fromCharCode(parseInt(bin, 2));
-  //   });
-  // return binString;
 }
 
  //detect separate character position
@@ -551,62 +394,6 @@ function AddBit(binary) {
   index = data.indexOf(data2);
   
   return index+8;
-  console.log(index);
-
-  // var split = data.split('');
-  // console.log(split);
-  // var separate = data2.split('');
-  // console.log(separate);
-  // for (var i = 0; i < split.length; i++) {
-  //   // j = i;
-  //   if (split[i] == separate[0]){
-  //     i++
-  //     if (split[i] == separate[1]){
-  //       i++
-  //       if (split[i] == separate[2]){
-  //         i++
-  //         if (split[i] == separate[3]){
-  //           i++
-  //           if (split[i] == separate[4]){
-  //             i++
-  //             if (split[i] == separate[5]){
-  //               i++
-  //               if (split[i] == separate[6]){
-  //                 i++
-  //                 if (split[i] == separate[7]){
-  //                   i++
-  //                   return i;
-  //                   break;
-  //                 }
-  //               }
-  //               else {
-  //                 i--;
-  //               }
-  //             }
-  //             else {
-  //               i--;
-  //             }
-  //           }
-  //           else {
-  //             i--;
-  //           }
-  //         }
-  //         else {
-  //           i--;
-  //         }
-  //       }
-  //       else {
-  //         i--;
-  //       }
-  //     }
-  //     else {
-  //       i--;
-  //     }
-  //   }
-  //   else {
-  //     i--;
-  //   }
-  // }
 }
 
 //convert input text to a byte array
@@ -614,7 +401,6 @@ function textToArray($text)
 {
   $ar = array_slice(unpack("C*", "\0".$text), 1);
   return $ar;
-    // console.log('')
   }
 
 // get frecuency
@@ -734,16 +520,6 @@ function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
-// function sortOBJ(object){
-//   var sortable = [];
-//   for (var vehicle in object) {
-//       sortable.push([vehicle, object[vehicle]]);
-//   }
-
-//   sortable.sort(function(a, b) {
-//       return a[1] - b[1];
-// }
-
 function createObject(array) {
   var obj = {};
   for (var i = 0; i < array.length; i++) {
@@ -759,7 +535,6 @@ function decode2(tableSF,encoded) {
     for(var i = 1; i <= 50; i++) {
      substring = encoded.substr(start,i);
      substring = substring.toString();
-     console.log('substring : '+substring)
      var test = stringMatch(tableSF,substring)
      if (test != undefined) {
       start = i;
@@ -773,15 +548,10 @@ function decode2(tableSF,encoded) {
 function stringMatch (tableSF,substring) {
   for (var i = 0; i < tableSF.length; i++) {
     if (tableSF[i][1] == substring) {
-      console.log(tableSF[i][1]);
       return tableSF[i][0];
     }
   }
 }
-
-  // function header (tuples) {
-
-  // }
 
   function StringToArray2D (a) {
     var result = [];
@@ -794,25 +564,3 @@ function stringMatch (tableSF,substring) {
 
     return result;
   }
-
-  // testing
-//   test = '123456781234';
-//   console.log(test);
-//   length = test.length;
-//     console.log(length);
-
-//   modulus = test.length%8;
-//     console.log(modulus);
-//     sisa = 8-modulus;
-//       console.log(sisa);
-
-// test2 = AddZero(test,sisa);
-//   console.log(test2);
-
-// test3 = DeleteZero (test2,sisa);
-//   console.log(test3);
-
-x = [[1,2],[3,4],[5,6]];
-o = x.reduce(function(prev,curr){prev[curr[0]]=curr[1];return prev;},{})
-console.log(x);
-console.log(o);
